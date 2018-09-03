@@ -1,0 +1,10 @@
+<%="#{@recipe.title}"%> <br><br>
+
+<%if @user%>
+  <%=link_to "Edit", edit_recipe_path(@recipe)%>
+<%else%>
+  <%=form_tag ({controller: 'recipes', action: 'edit', method: 'post'}) do %>
+    <%=hidden_field_tag 'recipe_id', params[:id]%>
+    <%=submit_tag "Edit Recipe"%>
+  <%end%>
+<%end%>

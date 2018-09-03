@@ -1,0 +1,13 @@
+<%@recipes.each do |recipe|%>
+  <%=recipe.title%> -
+
+  <%if @user%>
+    <%=link_to "Show #{recipe.title}", recipe_path(recipe)%> <br>
+  <%else%>
+    <%=link_to "Make selected recipe #{recipe.title}", recipe_path(recipe)%><br>
+  <%end%>
+<%end%>
+
+<%if @user%>
+  <%=link_to "New Recipe", new_recipe_path%>
+<%end%>
