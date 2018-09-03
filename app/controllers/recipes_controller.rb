@@ -11,6 +11,15 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by(id: params[:id])
   end
 
+  def search
+    ingredient = Ingredient.new
+
+    ingredient.user = current_user
+    ingredient.recipe = Recipe.find_by(id: params[:item])
+    ingredient.save
+    flash[:message] = ingredient.search_recipes(item)
+    redirect_to user_path(current_user)
+  end
 
   def new
     @recipe = Recipe.new
@@ -31,8 +40,10 @@ class RecipesController < ApplicationController
   end
 
   def update
-    
+    @recipe.update(recipe_params)
+    redirect_to recipe_path(@recipe)
   end
+
 
 
   private

@@ -12,7 +12,9 @@
 
 ActiveRecord::Schema.define(version: 3) do
 
-  create_table "options", force: :cascade do |t|
+  create_table "ingredients", force: :cascade do |t|
+    t.string "main_ingredient"
+    t.string "other_ingredients"
     t.integer "recipe_id"
     t.integer "user_id"
     t.datetime "created_at", null: false

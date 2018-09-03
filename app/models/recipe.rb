@@ -1,4 +1,4 @@
 class Recipe < ActiveRecord::Base
-	has_many :options
-	has_many :users, through: :options
+	has_many :ingredients
+	has_many :users, through: :ingredients
 end
