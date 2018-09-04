@@ -1,6 +1,5 @@
 <h4><%="#{@recipe.title}"%></h4>
 <h5>Category-  <%="#{@recipe.category}"%></h5>
-<h5>Ingredients-  <%="#{@recipe.ingredients}"%></h5>
 <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
 <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
 
@@ -12,14 +11,10 @@
     <%=submit_tag "Edit Recipe"%>
   <%end%>
   <%end%>
-
-    <%=label :ingredient, "Ingredient"%><br>
-  <%=text_field :ingredient%><br>
-    <%if @user%>
-
-  <%=link_to "Search", user_recipes_path(@recipe)%>
+<%if @user%>
+  <%=link_to "Search", ingredients_path(@ingredient)%>
 <%else%>
-  <%=form_tag ({controller: 'recipes', action: 'search', method: 'post'}) do %>
+  <%=form_tag ({controller: 'ingredient', action: 'search', method: 'post'}) do %>
     <%=hidden_field_tag 'ingredient', params[:ingredient]%>
     <%=submit_tag "Search Recipes"%>
   <%end%>

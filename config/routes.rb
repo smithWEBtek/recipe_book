@@ -2,12 +2,12 @@ Rails.application.routes.draw do
 	root 'users#welcome'
 	get '/signin' => 'sessions#new'
   	post '/sessions' => 'sessions#create'
-  	delete '/sessions' => 'sessions#destroy'
-    resources :options
-    resources :recipes
+  	delete '/logout' => 'sessions#destroy'
+  	resources :users
 
 
-  	resources :users do
-  		resources :recipes 
+  	resources :recipes do
+  		resources :ingredients, only: [:index, :show]
   	end
+  	resources :ingredients
 end

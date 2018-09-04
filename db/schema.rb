@@ -10,31 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 2018_09_04_205112) do
 
   create_table "ingredients", force: :cascade do |t|
-    t.string "main_ingredient"
-    t.string "other_ingredients"
-    t.integer "recipe_id"
-    t.integer "user_id"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.string "amount", null: false
+    t.integer "recipe_id", null: false
+    t.integer "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
   create_table "recipes", force: :cascade do |t|
-    t.string "title"
-    t.string "category"
-    t.string "ingredients"
-    t.string "directions"
-    t.integer "cook_time"
+    t.string "title", null: false
+    t.string "category", null: false
+    t.string "directions", null: false
+    t.integer "cook_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "password_digest"
-    t.integer "time_available"
+    t.string "name", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
