@@ -3,10 +3,10 @@
 	<%if @user%>
     	<%=link_to "Show", recipe_path(recipe)%> <br>
 	<%end%>	
+<%end%>
 	<%if @user%>
   		<%=link_to "New Recipe", new_recipe_path%>
 	<%end%>
 	<%if @user%>
   		<%=link_to "Search by Ingredient", ingredients_path%>
   	<%end%>
-<%end%>

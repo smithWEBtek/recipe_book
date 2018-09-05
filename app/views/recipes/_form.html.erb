@@ -7,7 +7,13 @@
 
   <%=f.label :category, "Category"%><br>
   <%=f.text_field :category%><br>
+  <%=f.label :recipe_ingredient, "Ingredients"%><br>
 
+ <%= f.fields_for :recipe_ingredient do |recipe_ingredients|%>
+      Amount: <%= recipe_ingredients.text_field :amount %>
+  <%end%>
+
+<br>
   <%=f.label :directions, "Directions"%><br>
   <%=f.text_field :directions%><br>
 

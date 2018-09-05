@@ -5,7 +5,18 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all
     @user= current_user
   end
-
+# def index
+#     if params[:artist_id]
+#       @artist = Artist.find_by(id: params[:artist_id])
+#       if @artist.nil?
+#         flash[:alert] = "Artist not found."
+#         redirect_to artists_path
+#       else
+#         @songs = @artist.songs
+#       end
+#     end
+#     @songs = Song.all
+#   end
   def show
     @user = current_user
     @recipe = Recipe.find_by(id: params[:id])
@@ -44,7 +55,11 @@ class RecipesController < ApplicationController
     redirect_to recipe_path(@recipe)
   end
 
-
+  def destroy
+    @recipe = Recipe.find_by(id: params[:id])
+    @recipe.delete
+    redirect_to recipes_path
+  end
 
   private
 

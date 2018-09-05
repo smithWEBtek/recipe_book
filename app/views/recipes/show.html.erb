@@ -1,8 +1,9 @@
+<% if !@recipe.nil? %>
 <h4><%="#{@recipe.title}"%></h4>
 <h5>Category-  <%="#{@recipe.category}"%></h5>
+<%= render 'ingredients/show_ingredients', recipe: @recipe %>
 <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
 <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
-
 <%if @user%>
   <%=link_to "Edit", edit_recipe_path(@recipe)%>
 <%else%>
@@ -19,3 +20,7 @@
     <%=submit_tag "Search Recipes"%>
   <%end%>
 <%end%>
+<%= link_to "Delete", recipe_path(@recipe), method: :delete if logged_in? %>
+<%end%>
+
+
