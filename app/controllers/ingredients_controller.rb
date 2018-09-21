@@ -23,7 +23,9 @@ class IngredientsController < ApplicationController
   end
 
   def search
-    if ingredient == recipe.ingredient
+    @ingredient = Ingredient.new(ingredient_params)
+
+    if @ingredient == recipe.ingredient
       return Recipe.all
     end
     
@@ -59,7 +61,7 @@ class IngredientsController < ApplicationController
 
 
   def ingredient_params
-    params.require(:ingredient).permit(:title, :category, :ingredients, :directions, :cook_time)
+    params.require(:ingredient).permit(:name, :amount)
   end
 
   def find_ingredient

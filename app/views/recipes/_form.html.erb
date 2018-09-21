@@ -10,6 +10,8 @@
   <%=f.label :recipe_ingredient, "Ingredients"%><br>
 
  <%= f.fields_for :recipe_ingredient do |recipe_ingredients|%>
+      Name: <%= recipe_ingredients.text_field :name %>
+
       Amount: <%= recipe_ingredients.text_field :amount %>
   <%end%>
 

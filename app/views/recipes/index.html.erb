@@ -1,3 +1,4 @@
+<h3>All Recipes</h3>
 <%@recipes.each do |recipe|%>
   <%=recipe.title%> -
 	<%if @user%>
@@ -5,8 +6,8 @@
 	<%end%>	
 <%end%>
 	<%if @user%>
-  		<%=link_to "New Recipe", new_recipe_path%>
+  		<%=link_to "New Recipe", new_recipe_path%><br>
 	<%end%>
 	<%if @user%>
-  		<%=link_to "Search by Ingredient", ingredients_path%>
+  		<%=link_to "Search", ingredients_path%>
   	<%end%>
