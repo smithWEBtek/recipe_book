@@ -1,19 +1,28 @@
   <%=link_to "All Recipes", recipes_path%>
 
-<h3> Recipe </h3>
-<%=form_for @recipe do |f|%>
+<h3> Recipe: </h3>
+<%=form_for recipe do |f|%>
   <%=f.label :title, "Title"%><br>
   <%=f.text_field :title%><br>
 
   <%=f.label :category, "Category"%><br>
   <%=f.text_field :category%><br>
-  <%=f.label :recipe_ingredient, "Ingredients"%><br>
 
- <%= f.fields_for :recipe_ingredient do |recipe_ingredients|%>
-      Name: <%= recipe_ingredients.text_field :name %>
+<h3>Ingredients:</h3>
 
-      Amount: <%= recipe_ingredients.text_field :amount %>
-  <%end%>
+   <div>
+    <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
+    <div>
+  
+    <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.order('name ASC').all, :id, :name, include_blank: 'Select Ingredient' %>
+          Amount: <%= recipe_ingredient.text_field :amount %>
+
+    <%= recipe_ingredient.fields_for :ingredient, recipe.ingredients.build do |ingredient| %>
+    Or Create New: <%= ingredient.text_field :name %>
+    <% end %>
+    </div>
+      <% end %>
+   </div>
 
 <br>
   <%=f.label :directions, "Directions"%><br>

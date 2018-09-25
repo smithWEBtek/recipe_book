@@ -14,14 +14,15 @@
   <%end%>
   <%end%>
 <%if @user%>
-  <%=link_to "Search", ingredients_path(@ingredient)%>
+  <%=link_to "Search by Ingredient", search_path(@recipe)%>
 <%else%>
-  <%=form_tag ({controller: 'ingredient', action: 'search', method: 'post'}) do %>
-    <%=hidden_field_tag 'ingredient', params[:ingredient]%>
-    <%=submit_tag "Search Recipes"%>
-  <%end%>
-<%end%>
+  <%=form_tag ({controller: 'ingredients', action: 'search', method: 'post'}) do %>
+    <%=hidden_field_tag 'ingredient_id', params[:id]%>
+    <%=submit_tag "Search"%>
 <%= link_to "Delete", recipe_path(@recipe), method: :delete if logged_in? %>
 <%end%>
+<%end%>
+<%end%>
+
 
 

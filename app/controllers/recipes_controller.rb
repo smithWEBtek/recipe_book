@@ -5,49 +5,33 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all
     @user= current_user
   end
-# def index
-#     if params[:artist_id]
-#       @artist = Artist.find_by(id: params[:artist_id])
-#       if @artist.nil?
-#         flash[:alert] = "Artist not found."
-#         redirect_to artists_path
-#       else
-#         @songs = @artist.songs
-#       end
-#     end
-#     @songs = Song.all
-#   end
+
   def show
     @user = current_user
     @recipe = Recipe.find_by(id: params[:id])
   end
 
-  def search
-    ingredient = Ingredient.new
-
-    ingredient.user = current_user
-    ingredient.recipe = Recipe.find_by(id: params[:item])
-    ingredient.save
-    flash[:message] = ingredient.search_recipes(item)
-    redirect_to user_path(current_user)
-  end
 
   def new
     @recipe = Recipe.new
+    @ingredients = 6.times.collect { @recipe.recipe_ingredients.build }
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
-
-    if @recipe.save
-      redirect_to recipe_path(@recipe)
-    else
-      redirect_to new_recipe_path
+    recipe = current_user.recipes.new(recipe_params)
+      if recipe.save
+        recipe.add_ingredients(recipe_ingredient_params)
+        redirect_to recipe_path(recipe)
+      else
+        @recipe = Recipe.new
+        redirect_to new_recipe_path
     end
   end
 
-  def edit
 
+  def edit
+    @recipe = find_by_id(Recipe)
+    @i = 3.times.collect { @recipe.recipe_ingredients.build }
   end
 
   def update
@@ -61,11 +45,16 @@ class RecipesController < ApplicationController
     redirect_to recipes_path
   end
 
+
   private
 
 
   def recipe_params
-    params.require(:recipe).permit(:title, :category, :ingredients, :directions, :cook_time)
+    params.require(:recipe).permit(:title, :category, :directions, :cook_time)
+  end
+  
+  def recipe_ingredient_params
+    params.require(:recipe).permit(recipe_ingredients_attributes: [:amount, :ingredient_id, ingredient: [:name]])
   end
 
   def find_recipe

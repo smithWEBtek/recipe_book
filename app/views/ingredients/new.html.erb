@@ -1,6 +1,8 @@
 <%=form_for @ingredient do |f|%>
-  <%=f.label :ingredient_id, "Main Ingredient Search"%><br>
-  <%=f.text_field :ingredient_id%><br>
+  <%=f.label :name, "Name"%><br>
+  <%=f.text_field :name%><br>
+   <%=f.label :amount, "Amout"%><br>
+  <%=f.text_field :amount%><br>
 
   <%=f.submit%>
 <%end%>

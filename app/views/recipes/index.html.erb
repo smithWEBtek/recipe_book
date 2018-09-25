@@ -8,6 +8,7 @@
 	<%if @user%>
   		<%=link_to "New Recipe", new_recipe_path%><br>
 	<%end%>
-	<%if @user%>
-  		<%=link_to "Search", ingredients_path%>
-  	<%end%>
+		<%if @user%>
+  		<%=link_to "Search by Ingredient", search_path%><br>
+	<%end%>
+	
