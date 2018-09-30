@@ -4,13 +4,16 @@ Rails.application.routes.draw do
     post '/sessions' => 'sessions#create'
   	delete '/logout' => 'sessions#destroy'
   	delete '/recipes' => 'recipes#destroy'
-    post '/search' => 'ingredients#search'
+    get '/ingredients' => 'ingredients#index'
+
 
 
   	resources :users
 
 
-  	resources :recipes
+  	resources :recipes do
+  		resources :ingredients
+  	end
 
 end
 

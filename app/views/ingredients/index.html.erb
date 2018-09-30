@@ -1,0 +1,12 @@
+<%=link_to "All Recipes", recipes_path%><br>
+
+<%=link_to "Add Recipe", new_recipe_path%>
+
+<h3>Ingredient Index</h3>
+<%@ingredients.each do |ingredient|%>
+  <%=ingredient.name%> <br>
+	<%if @user%>
+    	<%=link_to "Show", ingredient_path(ingredient)%> <br>
+	<%end%>	
+<%end%>
+

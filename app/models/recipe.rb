@@ -5,8 +5,8 @@ class Recipe < ActiveRecord::Base
 	validates :title, uniqueness: true
 	validates :title, presence: true
 	
-	accepts_nested_attributes_for :ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
-  accepts_nested_attributes_for :recipe_ingredients, reject_if: lambda {|attributes| attributes['name'].blank?}
+	accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :recipe_ingredients, reject_if: :all_blank, allow_destroy: true
 
 	def self.valid_entry(params)
 		return !params[:recipe][:title].empty? && !params[:recipe][:category].empty? && !params[:recipe][:directions].empty? && !params[:recipe][:cook_time].empty? 

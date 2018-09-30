@@ -17,9 +17,9 @@
   <%end%>
   <%end%>
 <%if @user%>
-  <%=link_to "Search by Ingredient", search_path(@recipe)%>
+  <%=link_to "Ingredients", ingredients_path(@ingredient)%>
 <%else%>
-  <%=form_tag ({controller: 'ingredients', action: 'search', method: 'post'}) do %>
+  <%=form_tag ({controller: 'ingredients', action: 'index', method: 'post'}) do %>
     <%=hidden_field_tag 'ingredient_id', params[:id]%>
     <%=submit_tag "Search"%>
 <%= link_to "Delete", recipe_path(@recipe), method: :delete if logged_in? %>

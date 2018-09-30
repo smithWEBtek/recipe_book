@@ -1,0 +1,5 @@
+
+<%= form_tag(ingredients_path method: :get) do %>
+  Ingredient: <%= text_field_tag :recipe_ingredient, params[:recipe_ingredient] %>
+  <%= submit_tag 'Search' %>
+<% end %>
