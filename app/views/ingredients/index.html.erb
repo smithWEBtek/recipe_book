@@ -4,9 +4,8 @@
 
 <h3>Ingredient Index</h3>
 <%@ingredients.each do |ingredient|%>
-  <%=ingredient.name%> <br>
-	<%if @user%>
-    	<%=link_to "Show", ingredient_path(ingredient)%> <br>
-	<%end%>	
+  <%=ingredient.name%> -
+
+    	<%=link_to "Recipes", recipe_ingredients_path(ingredient)%> <br>
 <%end%>
 

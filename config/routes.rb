@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   	delete '/logout' => 'sessions#destroy'
   	delete '/recipes' => 'recipes#destroy'
     get '/ingredients' => 'ingredients#index'
+    post '/ingredients'=> 'ingredients#find'
+    get '/search' => 'ingredients#search'
+    post '/search' => 'ingredients#search'
+
 
 
 

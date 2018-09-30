@@ -15,9 +15,9 @@
     <%=hidden_field_tag 'recipe_id', params[:id]%>
     <%=submit_tag "Edit Recipe"%>
   <%end%>
-  <%end%>
+  <%end%><br>
 <%if @user%>
-  <%=link_to "Ingredients", ingredients_path(@ingredient)%>
+  <%=link_to "Ingredient Index", ingredients_path(@ingredient)%>
 <%else%>
   <%=form_tag ({controller: 'ingredients', action: 'index', method: 'post'}) do %>
     <%=hidden_field_tag 'ingredient_id', params[:id]%>
