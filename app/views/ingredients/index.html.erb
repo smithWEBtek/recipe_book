@@ -6,6 +6,6 @@
 <%@ingredients.each do |ingredient|%>
   <%=ingredient.name%> -
 
-    	<%=link_to "Recipes", recipe_ingredients_path(ingredient)%> <br>
+    	<%=link_to "Recipes", recipe_path(ingredient)%> <br>
 <%end%>
 
