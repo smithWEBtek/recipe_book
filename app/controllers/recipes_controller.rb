@@ -2,9 +2,8 @@ class RecipesController < ApplicationController
   before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
-    @recipes = Recipe.all
-    @recipe = current_user.recipes.build
-  end
+    @recipes = Recipe.search(params[:ingredient])
+ end
 
   def show
     @user = current_user
@@ -50,7 +49,7 @@ class RecipesController < ApplicationController
 
 
   def recipe_params
-    params.require(:recipe).permit(:title, :category, :directions, :cook_time)
+    params.require(:recipe).permit(:title, :category, :directions, :cook_time, :ingredients)
   end
   
   def recipe_ingredient_params

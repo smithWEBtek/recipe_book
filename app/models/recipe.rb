@@ -11,7 +11,16 @@ class Recipe < ActiveRecord::Base
 	def self.valid_entry(params)
 		return !params[:recipe][:title].empty? && !params[:recipe][:category].empty? && !params[:recipe][:directions].empty? && !params[:recipe][:cook_time].empty? 
 
-	end	 
+	end	
+
+ 
+  def self.search(ingredients)
+      if ingredients
+        @recipe = Recipe.where('ingredients LIKE ?', "%#{:ingredients}%")
+      else
+        @recipe = Recipe.all
+      end
+  end
 
 
   def add_ingredients(params)
@@ -28,8 +37,6 @@ class Recipe < ActiveRecord::Base
       if !recipe_ingredient[:amount].empty?
         RecipeIngredient.create(amount: recipe_ingredient[:amount], ingredient_id: ingredient.id, recipe_id: self.id )
       end
-
     end
-
   end
 end

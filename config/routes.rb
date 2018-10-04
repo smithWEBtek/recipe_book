@@ -3,11 +3,8 @@ Rails.application.routes.draw do
     get '/signin' => 'sessions#new'
     post '/sessions' => 'sessions#create'
   	delete '/logout' => 'sessions#destroy'
-  	delete '/recipes' => 'recipes#destroy'
-    get '/ingredients' => 'ingredients#index'
-    post '/ingredients'=> 'ingredients#find'
     get '/search' => 'ingredients#search'
-    post '/search' => 'ingredients#search'
+    post '/search_recipes' => 'ingredients#search_recipes'
 
 
 
@@ -18,7 +15,7 @@ Rails.application.routes.draw do
   	resources :recipes do
   		resources :ingredients
   	end
-
+    resources :ingredients
 end
 
 

@@ -5,10 +5,5 @@ class Ingredient < ActiveRecord::Base
   	validates :name, presence: true
   	validates :name, uniqueness: true
 
-	def search_recipes(ingredient)
-		Recipe.find_by ingredient.title
-		
-
-	end
-
+	
 end
