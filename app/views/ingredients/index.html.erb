@@ -1,9 +1,10 @@
 <%=link_to "All Recipes", recipes_path%><br>
-
 <%=link_to "Add Recipe", new_recipe_path%>
+
 <h4>Search by Ingredient:</h4>
 <%= form_tag(recipes_path, method: :get) do %>
-<%= text_field_tag :ingredients, params[:ingredients]%>
+<%= text_field_tag :search, params[:ingredients]%>
+
   <%= submit_tag 'Search', name: nil %>
 <% end %>
 

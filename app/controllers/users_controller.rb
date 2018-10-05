@@ -16,12 +16,6 @@ class UsersController < ApplicationController
       redirect_to new_user_path
     end
   end
-  def welcome
-  end
-  
-
-  def show
-  end
 
   private
 

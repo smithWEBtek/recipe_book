@@ -17,7 +17,7 @@
   <%end%>
   <%end%><br>
 <%if @user%>
-  <%=link_to "Ingredient Index", ingredients_path(@ingredient)%>
+  <%=link_to "Ingredient Index", recipe_ingredients_path(@recipe)%>
 <%else%>
   <%=form_tag ({controller: 'ingredients', action: 'index', method: 'post'}) do %>
     <%=hidden_field_tag 'ingredient_id', params[:id]%>

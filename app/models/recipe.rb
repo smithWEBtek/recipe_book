@@ -14,9 +14,9 @@ class Recipe < ActiveRecord::Base
 	end	
 
  
-  def self.search(ingredients)
-      if ingredients
-        @recipe = Recipe.where('ingredients LIKE ?', "%#{:ingredients}%")
+  def self.search(ingredient)
+      if ingredient
+        @recipe = Recipe.where('name LIKE ?', "%#{:ingredient}%")
       else
         @recipe = Recipe.all
       end

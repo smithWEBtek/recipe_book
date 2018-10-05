@@ -1,15 +1,13 @@
 class RecipesController < ApplicationController
-  before_action :find_recipe, only: [:show, :edit, :update]
 
   def index
-    @recipes = Recipe.search(params[:ingredient])
- end
+    @recipes = Recipe.search(params[:search])
+  end
 
   def show
     @user = current_user
     @recipe = Recipe.find_by(id: params[:id])
   end
-
 
   def new
     @recipe = Recipe.new
@@ -27,10 +25,9 @@ class RecipesController < ApplicationController
     end
   end
 
-
   def edit
     @recipe = find_by_id(Recipe)
-    @i = 3.times.collect { @recipe.recipe_ingredients.build }
+    @i = 3.times.collect { recipe.recipe_ingredients.build }
   end
 
   def update
@@ -49,15 +46,11 @@ class RecipesController < ApplicationController
 
 
   def recipe_params
-    params.require(:recipe).permit(:title, :category, :directions, :cook_time, :ingredients)
+    params.require(:recipe).permit(:title, :category, :directions, :cook_time, :search)
   end
   
   def recipe_ingredient_params
     params.require(:recipe).permit(recipe_ingredients_attributes: [:amount, :ingredient_id, ingredient: [:name]])
-  end
-
-  def find_recipe
-    @recipe = Recipe.find_by(id: params[:id])
   end
 
 
