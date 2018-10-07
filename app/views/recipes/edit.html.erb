@@ -1,4 +1,4 @@
- 
-<%= form_tag recipe_path(@recipe), method: "put" do %>
-  <%= render 'form' %>
-<% end %>
+ <h1>Update Recipe</h1>
+<%= render 'form', recipe: @recipe, ingredient: @recipe.recipe_ingredients %>
+  
+     

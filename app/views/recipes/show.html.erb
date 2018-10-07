@@ -3,28 +3,19 @@
 <%=link_to "Add Recipe", new_recipe_path%>
 
 <% if !@recipe.nil? %>
-<h4><%="#{@recipe.title}"%></h4>
-<h5>Category-  <%="#{@recipe.category}"%></h5>
-<%= render 'ingredients/show_ingredients', recipe: @recipe %>
-<h5>Directions-  <%="#{@recipe.directions}"%></h5> 
-<h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
-<%if @user%>
-  <%=link_to "Edit", edit_recipe_path(@recipe)%>
-<%else%>
-  <%=form_tag ({controller: 'recipes', action: 'edit', method: 'post'}) do %>
-    <%=hidden_field_tag 'recipe_id', params[:id]%>
-    <%=submit_tag "Edit Recipe"%>
-  <%end%>
+  <h4><%="#{@recipe.title}"%></h4>
+  <h5>Category-  <%="#{@recipe.category}"%></h5>
+  <%= render 'ingredients/show_ingredients', recipe: @recipe %>
+  <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
+  <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
+    <% if @user%>
+      <%=link_to "Edit", edit_recipe_path(@recipe)%>
+    <%else%>
+      <%=form_tag ({controller: 'recipes', action: 'edit', method: 'post'}) do %>
+      <%=hidden_field_tag 'recipe_id', params[:id]%>
+      <%=submit_tag "Edit Recipe"%>
+    <%end%>
   <%end%><br>
-<%if @user%>
-  <%=link_to "Ingredient Index", recipe_ingredients_path(@recipe)%>
-<%else%>
-  <%=form_tag ({controller: 'ingredients', action: 'index', method: 'post'}) do %>
-    <%=hidden_field_tag 'ingredient_id', params[:id]%>
-    <%=submit_tag "Search"%>
-<%= link_to "Delete", recipe_path(@recipe), method: :delete if logged_in? %>
-<%end%>
-<%end%>
 <%end%>
 
 

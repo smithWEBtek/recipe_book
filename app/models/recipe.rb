@@ -14,11 +14,13 @@ class Recipe < ActiveRecord::Base
 	end	
 
  
-  def self.search(ingredient)
-      if ingredient
-        @recipe = Recipe.where('name LIKE ?', "%#{:ingredient}%")
+  def self.search(search)
+      if search
+        ingredient = Ingredient.find_or_create_by(name: search)
+        the_ingredient = RecipeIngredient.find_by(ingredient_id: ingredient)
+        @recipes = self.where(id: the_ingredient.recipe_id)
       else
-        @recipe = Recipe.all
+        Recipe.all
       end
   end
 

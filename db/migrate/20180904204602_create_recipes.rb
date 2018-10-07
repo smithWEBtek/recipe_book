@@ -1,14 +1,13 @@
 class CreateRecipes < ActiveRecord::Migration[5.2]
   def change
     create_table :recipes do |t|
-      t.string :title
-      t.string :category
-      t.string :directions
-      t.integer :cook_time
+      t.string :title, null: false
+      t.string :category, null: false
+      t.string :directions, null: false
+      t.integer :cook_time, null: false
      
-      t.datetime :created_at
-      t.datetime :updated_at
-      t.belongs_to :user, foreign_key: true
+      t.datetime :created_at, null: false
+      t.belongs_to :user, null: false
       t.timestamps null: false
     end
   end

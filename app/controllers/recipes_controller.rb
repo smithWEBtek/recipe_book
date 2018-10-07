@@ -16,28 +16,32 @@ class RecipesController < ApplicationController
 
   def create
     recipe = current_user.recipes.new(recipe_params)
-      if recipe.save
+      if Recipe.valid_entry(params)
+        recipe.save
         recipe.add_ingredients(recipe_ingredient_params)
         redirect_to recipe_path(recipe)
       else
-        @recipe = Recipe.new
         redirect_to new_recipe_path
     end
   end
 
   def edit
-    @recipe = find_by_id(Recipe)
-    @i = 3.times.collect { recipe.recipe_ingredients.build }
+    @recipe = Recipe.find_by(id: params[:id])
+    @i = 3.times.collect { @recipe.recipe_ingredients.build }
   end
 
   def update
-    @recipe.update(recipe_params)
-    redirect_to recipe_path(@recipe)
+    @recipe = Recipe.find_by(id: params[:id])
+    if @recipe.update(recipe_params)
+      redirect_to recipe_path(@recipe) 
+    else 
+      redirect_to new_recipe_path
+    end
   end
 
   def destroy
     @recipe = Recipe.find_by(id: params[:id])
-    @recipe.delete
+    @recipe.destroy!
     redirect_to recipes_path
   end
 

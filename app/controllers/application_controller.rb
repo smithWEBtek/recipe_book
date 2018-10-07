@@ -10,5 +10,8 @@ class ApplicationController < ActionController::Base
     	!!current_user
   	end
 
+    def find_by_recipe_id
+      Recipe.find_by(id: params[:recipe_id])
+    end
   
 end
