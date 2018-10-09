@@ -8,21 +8,32 @@ class Recipe < ActiveRecord::Base
 	accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :recipe_ingredients, reject_if: :all_blank, allow_destroy: true
 
+  scope :search, -> {where(ingredient_name: 'search')} 
+
 	def self.valid_entry(params)
 		return !params[:recipe][:title].empty? && !params[:recipe][:category].empty? && !params[:recipe][:directions].empty? && !params[:recipe][:cook_time].empty? 
 
 	end	
 
- 
-  def self.search(search)
-      if search
-        ingredient = Ingredient.find_or_create_by(name: search)
-        the_ingredient = RecipeIngredient.find_by(ingredient_id: ingredient)
-        @recipes = self.where(id: the_ingredient.recipe_id)
-      else
-        Recipe.all
-      end
+  def self.newest(number = all.size)
+    order("ID DESC").limit(number)
   end
+
+ def self.search(search)
+      @recipes ||= []
+      if !Ingredient.find_by(name: search)
+        Recipe.none
+      elsif
+        ingredient = Ingredient.find_by(name: search)
+        ingredient_id = RecipeIngredient.find_by(id: ingredient)
+        @recipes = Recipe.where(id: ingredient_id.recipe.id)
+          @recipes.each do |recipe|
+            recipe
+          end  
+      end
+    end
+  
+
 
 
   def add_ingredients(params)

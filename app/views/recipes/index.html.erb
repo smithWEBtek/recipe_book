@@ -1,18 +1,11 @@
  <%=link_to "Add Recipe", new_recipe_path%><br>
-
- <h4>Search by Ingredient:</h4>
-	<%= form_tag(recipes_path, method: :get) do %>
-	<%= text_field_tag :search, params[:search]%>
-  	<%= submit_tag 'Search', name: nil %>
-<% end %>
-
-
+ <%= link_to "Newest", recipes_find_newest_path%><br> 
+ <%=link_to "Search by Ingredient", search_path%><br>
 
 
 <h3>All Recipes</h3>
 <% @recipes.each do |recipe|%>
     <%=link_to recipe.title, recipe_path(recipe)%> <br>
-		
 <%end%>
 
 

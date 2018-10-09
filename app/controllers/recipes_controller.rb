@@ -1,6 +1,10 @@
 class RecipesController < ApplicationController
 
   def index
+    @recipes = Recipe.all
+  end
+
+  def search
     @recipes = Recipe.search(params[:search])
   end
 
@@ -43,6 +47,11 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by(id: params[:id])
     @recipe.destroy!
     redirect_to recipes_path
+  end
+
+  def find_newest
+    @recipes = Recipe.newest
+    render "recipes/index"
   end
 
 

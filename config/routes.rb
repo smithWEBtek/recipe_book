@@ -3,8 +3,9 @@ Rails.application.routes.draw do
     get '/signin' => 'sessions#new'
     post '/sessions' => 'sessions#create'
   	delete '/logout' => 'sessions#destroy'
-    get '/search' => 'ingredients#search'
-    post '/search_recipes' => 'ingredients#search_recipes'
+    get '/search' => 'recipes#search'
+    get 'recipes_find_newest' => 'recipes#find_newest'
+
 
 
 
