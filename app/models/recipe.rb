@@ -20,18 +20,16 @@ class Recipe < ActiveRecord::Base
   end
 
  def self.search(search)
-      @recipes ||= []
       if !Ingredient.find_by(name: search)
         Recipe.none
       elsif
-        ingredient = Ingredient.find_by(name: search)
-        ingredient_id = RecipeIngredient.find_by(id: ingredient)
-        @recipes = Recipe.where(id: ingredient_id.recipe.id)
-          @recipes.each do |recipe|
-            recipe
-          end  
+        ingredient = Ingredient.where("name LIKE ?", search)[0]
+        @recipes = ingredient.recipes
       end
     end
+
+
+
   
 
 
