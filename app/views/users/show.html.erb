@@ -3,7 +3,7 @@
 Name: <%=@user.name%><br>
 
 
-<%=link_to "Log Out", :sessions, method: :delete%><br>
+<%= link_to "Sign out", logout_path, method: :delete %><br><br>
 
-<%=link_to "See Recipes", recipes_path%>
+<%=link_to "See Recipes", recipes_path%><br>
 <%=link_to "Add Recipe", new_recipe_path%>

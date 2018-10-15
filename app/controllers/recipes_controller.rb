@@ -31,12 +31,16 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe = Recipe.find_by(id: params[:id])
-    @i = 3.times.collect { @recipe.recipe_ingredients.build }
+    if @recipe.user
+      @i = 3.times.collect { @recipe.recipe_ingredients.build }
+    else
+      redirect_to recipes_path
+    end
   end
 
   def update
     @recipe = Recipe.find_by(id: params[:id])
-    if @recipe.update(recipe_params)
+    if @recipe.update(recipe_params) || @recipe.update(recipe_ingredient_params)
       redirect_to recipe_path(@recipe) 
     else 
       redirect_to new_recipe_path
@@ -52,6 +56,20 @@ class RecipesController < ApplicationController
   def find_newest
     @recipes = Recipe.newest
     render "recipes/index"
+  end
+
+  def find_quickest
+    @recipes = Recipe.quickest 
+    render "recipes/index"
+  end
+
+  def most_ingredients
+    @recipes = Recipe.most_ingredients
+    render "recipes/index"
+  end
+
+  def created_before
+    Recipe.created_before(Time.zone.now)
   end
 
 

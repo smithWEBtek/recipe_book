@@ -1,12 +1,22 @@
  <%=link_to "Add Recipe", new_recipe_path%><br>
  <%= link_to "Newest", recipes_find_newest_path%><br> 
+ <%= link_to "Quickest to make", recipes_find_quickest_path%><br> 
  <%=link_to "Search by Ingredient", search_path%><br>
+ <%= link_to "Most Ingredients", recipes_most_ingredients_path%><br> 
+ <%= link_to "Least Ingredients", recipes_least_ingredients_path%><br> 
+ <%= link_to "All Ingredients", recipe_ingredients_path(ingredient.id)%><br> 
+
+
+
+
 
 
 <h3>All Recipes</h3>
 <% @recipes.each do |recipe|%>
     <%=link_to recipe.title, recipe_path(recipe)%> <br>
 <%end%>
+
+
 
 
 

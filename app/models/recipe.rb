@@ -8,15 +8,35 @@ class Recipe < ActiveRecord::Base
 	accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :recipe_ingredients, reject_if: :all_blank, allow_destroy: true
 
-  scope :search, -> {where(ingredient_name: 'search')} 
+ scope :created_before, ->(time) { where("created_at < ?", time) }
 
 	def self.valid_entry(params)
 		return !params[:recipe][:title].empty? && !params[:recipe][:category].empty? && !params[:recipe][:directions].empty? && !params[:recipe][:cook_time].empty? 
 
 	end	
 
-  def self.newest(number = all.size)
-    order("ID DESC").limit(number)
+  def self.newest(total = all.size)
+    order("ID DESC").limit(total)
+  end
+
+  def self.quickest(total = all.size)
+    order("cook_time ASC").limit(total)
+  end
+
+  def self.most_ingredients
+    @recipes = Recipe.all
+    lengths = Hash.new 
+    @recipes.each do |recipe|
+      lngth = recipe.ingredients.length
+      lengths[recipe] = lngth
+    end
+    most = lengths.sort_by {|k,v| k}
+    @recipes = most.recipes
+  end
+
+
+  def self.least_ingredients(number = all.size)
+
   end
 
  def self.search(search)
