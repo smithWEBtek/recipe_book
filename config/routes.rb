@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
 root to: 'users#welcome'
   get '/signin' => 'sessions#new'
-  post '/sessions' => 'sessions#create'
+  post '/signin' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   get '/auth/facebook/callback' => 'sessions#create'
   
