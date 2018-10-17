@@ -1,5 +1,0 @@
-<h4>Search by Ingredient:</h4>
-<%= form_tag(ingredients_path, method: :get) do %>
-<%= text_field_tag :ingredient, params[:ingredient]%>
-  <%= submit_tag 'Search', name: nil %>
-<% end %>

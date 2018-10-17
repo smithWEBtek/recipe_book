@@ -19,20 +19,9 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.most_ingredients
-    @recipes = Recipe.all
-    lengths = Hash.new 
-    @recipes.each do |recipe|
-      lngth = recipe.ingredients.length
-      lengths[recipe] = lngth
-    end
-    most = lengths.sort_by {|k,v| k}
-    @recipes = most.recipes
+    Recipe.includes(:ingredients).group(['recipe_id','ingredient_id']).order(Arel.sql('COUNT(ingredient_id)')).references(:ingredients)
   end
 
-
-  def self.least_ingredients(number = all.size)
-
-  end
 
  def self.search(search)
       if !Ingredient.find_by(name: search)

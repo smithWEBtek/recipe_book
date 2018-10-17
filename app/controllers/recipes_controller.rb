@@ -68,9 +68,11 @@ class RecipesController < ApplicationController
     render "recipes/index"
   end
 
-  def created_before
-    Recipe.created_before(Time.zone.now)
+  def least_ingredients
+    @recipes = Recipe.least_ingredients
+    render "recipes/index"
   end
+
 
 
   private

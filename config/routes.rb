@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     get 'recipes_find_newest' => 'recipes#find_newest'
     get 'recipes_find_quickest' => 'recipes#find_quickest'
     get 'recipes_most_ingredients' => 'recipes#most_ingredients'
-    get 'recipes_least_ingredients' => 'recipes#least_ingredients'
 
 
 root to: 'users#welcome'
@@ -21,7 +20,7 @@ root to: 'users#welcome'
 
 
   	resources :recipes do
-  		resources :ingredients
+  		resources :ingredients, :only => [:new, :index]
   	end
 end
 
