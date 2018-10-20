@@ -8,15 +8,23 @@
   <%= render 'ingredients/show_ingredients', recipe: @recipe %>
   <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
   <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
-    <% if @user%>
-      <%=link_to "Edit", edit_recipe_path(@recipe)%>
+   <%= link_to pluralize(@recipe.comments.size, 'comment'), new_recipe_comment_path(@recipe)%> |
+    <%if @user%>
+        <%=link_to "Edit |", edit_recipe_path(@recipe)%>
     <%else%>
-      <%=form_tag ({controller: 'recipes', action: 'edit', method: 'post'}) do %>
-      <%=hidden_field_tag 'recipe_id', params[:id]%>
-      <%=submit_tag "Edit Recipe"%>
+        <%=form_tag ({controller: 'recipes', action: 'edit', method: 'patch'}) do %>
+        <%=hidden_field_tag 'recipe_id', params[:id]%>
+        <%=submit_tag "Edit Recipe" %>
+      <%end%>
     <%end%>
-  <%end%><br>
+    <%if @user%>
+<%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
+      
+    <%end%>
+
 <%end%>
+
+
 
 
 

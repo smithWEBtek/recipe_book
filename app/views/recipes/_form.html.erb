@@ -7,6 +7,7 @@
   <%=f.label :category, "Category"%><br>
   <%=f.text_field :category%><br>
 
+
 <h3>Ingredients:</h3>
   <div>
     <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
@@ -15,7 +16,7 @@
           Amount: <%= recipe_ingredient.text_field :amount %>
 
     <%= recipe_ingredient.fields_for :ingredient, recipe.ingredients.build do |ingredient| %>
-    Or Create New: <%= ingredient.text_field :name %>
+    Add new item: <%= ingredient.text_field :name %>
     <% end %>
     </div>
       <% end %>

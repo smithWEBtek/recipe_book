@@ -1,5 +1,6 @@
 class Recipe < ActiveRecord::Base
 	belongs_to :user
+  has_many :comments
 	has_many :recipe_ingredients
 	has_many :ingredients, through: :recipe_ingredients
 	validates :title, uniqueness: true
@@ -19,7 +20,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.most_ingredients
-    Recipe.includes(:ingredients).group(['recipe_id','ingredient_id']).order(Arel.sql('COUNT(ingredient_id)')).references(:ingredients)
+    Recipe.includes(:ingredients).group(['ingredient_id','recipe_id']).order('COUNT(ingredient_id) ASC').references(:ingredients)
   end
 
 
@@ -40,7 +41,7 @@ class Recipe < ActiveRecord::Base
 
   def add_ingredients(params)
     
-    params[:recipe_ingredients_attributes].each do |k, recipe_ingredient|
+    params[:recipe_ingredients_attributes].each do |i, recipe_ingredient|
 
       if !recipe_ingredient[:ingredient][:name].empty?
         ingredient_name = recipe_ingredient[:ingredient][:name].downcase

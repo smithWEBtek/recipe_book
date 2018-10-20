@@ -29,6 +29,7 @@ class RecipesController < ApplicationController
     end
   end
 
+
   def edit
     @recipe = Recipe.find_by(id: params[:id])
     if @recipe.user

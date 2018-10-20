@@ -17,11 +17,14 @@ root to: 'users#welcome'
 
 
   	resources :users
+    resources :ingredients
+
 
 
   	resources :recipes do
-  		resources :ingredients, :only => [:new, :index]
-  	end
+      resources :comments, :only => [:new]
+    end
+    resources :comments, :only => [:update, :destroy]
 end
 
 
