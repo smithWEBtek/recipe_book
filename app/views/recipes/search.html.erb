@@ -1,15 +1,20 @@
+ <%= link_to "Sign out", logout_path, method: :delete %><br>
+ <%=link_to "Add Recipe", new_recipe_path%><br>
+  <%=link_to "Home", recipes_path%>
+
  <h4>Search by Ingredient:</h4>
-	<%= form_tag(search_path, method: :get) do %>
-	<%= text_field_tag :search, params[:search]%>
-  	<%= submit_tag 'Search', name: nil %>
-<% end %>
+ <%= form_tag(search_path, method: :get) do %>
+ <%= text_field_tag :search, params[:search]%>
+ <%= submit_tag 'Search', name: nil %>
+ <% end %>
 
 
-<h3>Recipes</h3>
-<% @recipes.each do |recipe|%>
-    <%=link_to recipe.title, recipe_path(recipe)%> <br>
-<%end%>
 
+
+ <h3>Recipes</h3>
+ <% @recipes.each do |recipe|%>
+ <%=link_to recipe.title, recipe_path(recipe)%> <br>
+ <%end%>
 
 
 

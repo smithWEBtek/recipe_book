@@ -1,19 +1,19 @@
  <%= link_to "Sign out", logout_path, method: :delete %><br>
-  <%=link_to "Add Recipe", new_recipe_path%><br>
+ <%=link_to "Add Recipe", new_recipe_path%><br>
 
  
-<br>
+ <br>
  <%= link_to "Newest", recipes_find_newest_path%><br> 
  <%= link_to "Quickest cook time", recipes_find_quickest_path%><br> 
- <%=link_to "Search by Ingredient", search_path%><br>
+ <%= link_to "Search", search_path%><br>
  <%= link_to "Ingredient count", recipes_most_ingredients_path%><br> 
 
 
 
-<h3>All Recipes</h3>
-<% @recipes.each do |recipe|%>
-    <%=link_to recipe.title, recipe_path(recipe)%> <br>
-<%end%>
+ <h3>All Recipes</h3>
+ <% @recipes.each do |recipe|%>
+ <%=link_to recipe.title, recipe_path(recipe)%> <br>
+ <%end%>
 
 
 

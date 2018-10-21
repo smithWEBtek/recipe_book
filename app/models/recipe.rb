@@ -1,45 +1,52 @@
 class Recipe < ActiveRecord::Base
 	belongs_to :user
   has_many :comments
-	has_many :recipe_ingredients
-	has_many :ingredients, through: :recipe_ingredients
-	validates :title, uniqueness: true
-	validates :title, presence: true
-	
-	accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
+  validates :title, presence: true, uniqueness: true
+  
+  
+  accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :recipe_ingredients, reject_if: :all_blank, allow_destroy: true
 
   scope :quickest, -> { order("cook_time ASC") }
-
-	def self.valid_entry(params)
-		return !params[:recipe][:title].empty? && !params[:recipe][:category].empty? && !params[:recipe][:directions].empty? && !params[:recipe][:cook_time].empty? 
-	end	
+  
+  def self.valid_entry(params)
+    return !params[:recipe][:title].empty? && !params[:recipe][:category].empty? && !params[:recipe][:directions].empty? && !params[:recipe][:cook_time].empty? 
+  end
 
   def self.newest(total = all.size)
     order("ID DESC").limit(total)
   end
 
+  def self.category(total = all.size)
+    order("category DESC").limit(total)
+  end
+
   def self.most_ingredients
     Recipe.includes(:ingredients).group(['ingredient_id','recipe_id']).order('COUNT(ingredient_id) ASC').references(:ingredients)
   end
-
-
- def self.search(search)
-      if !Ingredient.find_by(name: search)
-        Recipe.none
-      elsif
-        ingredient = Ingredient.where("name LIKE ?", search)[0]
-        @recipes = ingredient.recipes
-      end
+  
+  def self.search(search)
+    if !Ingredient.find_by(name: search)
+      Recipe.none
+    else
+      ingredient = Ingredient.where("name LIKE ?", search)[0]
+      @recipes = ingredient.recipes     
     end
-
-
+  end
 
   
-
-
+  def delete_ingredients
+    ingredients.size.times do
+      ingredient = RecipeIngredient.find_by(recipe_id: self.id)
+      ingredient.delete
+    end
+  end
 
   def add_ingredients(params)
+
+    delete_ingredients
     
     params[:recipe_ingredients_attributes].each do |i, recipe_ingredient|
 

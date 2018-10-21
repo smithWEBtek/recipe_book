@@ -10,7 +10,7 @@ class RecipesController < ApplicationController
 
   def show
     @user = current_user
-    @recipe = Recipe.find_by(id: params[:id])
+    @recipe = Recipe.find(params[:id])
   end
 
   def new
@@ -20,12 +20,12 @@ class RecipesController < ApplicationController
 
   def create
     recipe = current_user.recipes.new(recipe_params)
-      if Recipe.valid_entry(params)
-        recipe.save
-        recipe.add_ingredients(recipe_ingredient_params)
-        redirect_to recipe_path(recipe)
-      else
-        redirect_to new_recipe_path
+    if Recipe.valid_entry(params)
+      recipe.save
+      recipe.add_ingredients(recipe_ingredient_params)
+      redirect_to recipe_path(recipe)
+    else
+      redirect_to new_recipe_path, notice: "Make sure all fields are complete"
     end
   end
 
@@ -33,18 +33,21 @@ class RecipesController < ApplicationController
   def edit
     @recipe = Recipe.find_by(id: params[:id])
     if @recipe.user
-      @i = 3.times.collect { @recipe.recipe_ingredients.build }
+      recipe = 1.times.collect { @recipe.recipe_ingredients.build }
     else
       redirect_to recipes_path
     end
   end
 
   def update
-    @recipe = Recipe.find_by(id: params[:id])
-    if @recipe.update(recipe_params) || @recipe.update(recipe_ingredient_params)
-      redirect_to recipe_path(@recipe) 
-    else 
-      redirect_to new_recipe_path
+    own_recipes
+    binding.pry
+    recipe = Recipe.find_by(id: params[:id])
+    if recipe.update(recipe_params)
+      recipe.add_ingredients(recipe_ingredient_params)
+      redirect_to recipe_path(recipe), notice: "Your recipe has successfully been updated"
+    else  
+      redirect_to new_recipe_path, alert: recipe.errors.full_messages.each {|m| m}.join
     end
   end
 
@@ -52,6 +55,11 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by(id: params[:id])
     @recipe.destroy!
     redirect_to recipes_path
+  end
+
+  def sort_by_category
+    @recipes = Recipe.category
+    render "recipes/index"
   end
 
   def find_newest

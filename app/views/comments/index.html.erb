@@ -3,11 +3,11 @@
 <p><%= link_to "&lsaquo;&lsaquo; Back to Recipe", @article %></p>
 
 <% if @recipe.comments.empty? %>
-  <p>Currently no comments.</p>
+<p>Currently no comments.</p>
 <% else %>
-  <div id="comments">
-    <%= render :partial => @recipe.comments %>
-  </div>
+<div id="comments">
+	<%= render :partial => @recipe.comments %>
+</div>
 <% end %>
 
 <p><%= link_to "New Comment", new_recipe_comment_path(@recipe) %></p>

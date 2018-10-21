@@ -5,26 +5,25 @@ class User < ActiveRecord::Base
 	validates :name, presence: true, length: { maximum: 12 }
 	validates :name, uniqueness: true
 	validates :password_digest, :presence => true, 
-								:confirmation => true,
-								:length => { minimum: 8},
-	                       		:unless => :has_password?
+	:confirmation => true,
+	:length => { minimum: 8},
+	:unless => :has_password?
 
 
 	def has_password?
-    	!self.password_digest.blank?
-  	end
+		!self.password_digest.blank?
+	end
 
-  	def self.from_omniauth(auth)
-    	where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-	      user.provider = auth.provider
-	      user.uid = auth.uid
-	      user.name = auth.info.name
-	      user.oauth_token = auth.credentials.token
-	      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-	      user.save!
-    	end
-  	end
+	def self.from_omniauth(auth)
+		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+			user.provider = auth.provider
+			user.uid = auth.uid
+			user.name = auth.info.name
+			user.oauth_token = auth.credentials.token
+			user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+			user.save!
+		end
+	end
 
 end
 
-  

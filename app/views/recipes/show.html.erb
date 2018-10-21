@@ -1,26 +1,26 @@
-<%=link_to "All Recipes", recipes_path%><br>
+<%=link_to "Home", recipes_path%><br>
 
 <%=link_to "Add Recipe", new_recipe_path%>
 
 <% if !@recipe.nil? %>
-  <h4><%="#{@recipe.title}"%></h4>
-  <h5>Category-  <%="#{@recipe.category}"%></h5>
-  <%= render 'ingredients/show_ingredients', recipe: @recipe %>
-  <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
-  <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
-   <%= link_to pluralize(@recipe.comments.size, 'comment'), new_recipe_comment_path(@recipe)%> |
-    <%if @user%>
-        <%=link_to "Edit |", edit_recipe_path(@recipe)%>
-    <%else%>
-        <%=form_tag ({controller: 'recipes', action: 'edit', method: 'patch'}) do %>
-        <%=hidden_field_tag 'recipe_id', params[:id]%>
-        <%=submit_tag "Edit Recipe" %>
-      <%end%>
-    <%end%>
-    <%if @user%>
+<h4><%="#{@recipe.title}"%></h4>
+<h5>Category-  <%="#{@recipe.category}"%></h5>
+<%= render 'ingredients/show_ingredients', recipe: @recipe %>
+<h5>Directions-  <%="#{@recipe.directions}"%></h5> 
+<h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
+<%= link_to pluralize(@recipe.comments.size, 'comment'), new_recipe_comment_path(@recipe)%> |
+<%if @user%>
+<%=link_to "Edit |", edit_recipe_path(@recipe)%>
+<%else%>
+<%=form_tag ({controller: 'recipes', action: 'edit', method: 'patch'}) do %>
+<%=hidden_field_tag 'recipe_id', params[:id]%>
+<%=submit_tag "Edit Recipe" %>
+<%end%>
+<%end%>
+<%if @user%>
 <%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
-      
-    <%end%>
+
+<%end%>
 
 <%end%>
 
