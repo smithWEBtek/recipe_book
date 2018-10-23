@@ -1,0 +1,12 @@
+<%= form_for(@comment) do |f| %>
+  <label>Title:</label><br>
+  <% if @comment.recipe.nil? %>
+    <%= f.select :recipe_id, options_from_collection_for_select(Recipe.all, :id, :title) %><br>
+  <% end %>
+  <%= f.hidden_field :recipe_id %>
+ 
+  <%= f.text_field :title %><br>
+  <label>Comment </label><br>
+  <%= f.text_area :content %><br>
+  <%= f.submit %>
+<% end %>

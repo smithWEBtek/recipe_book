@@ -8,43 +8,60 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.find(params[:id])
+    if params[:recipe_id]
+      @comment = Recipe.find(params[:recipe_id]).comments.find(params[:id])
+    else
+      @comment = Comment.find(params[:id])
+    end
   end
     
   def new
-    @recipe = Recipe.find(params[:recipe_id])
-    @comment = @recipe.comments.build
-  end
-  
-  def create
-    @recipe = Recipe.find(params[:recipe_id])
-    @comment = @recipe.comments.build(params[:comment])
-    if @comment.save
-      flash[:notice] = "Successfully created comment."
-      redirect_to recipe_url(@comment.recipe_id)
+    if params[:recipe_id] && !Recipe.exists?(params[:recipe_id])
+      redirect_to recipe_path, alert: "Recipe not found."
     else
-      render :action => 'new'
+      @comment = Comment.new(recipe_id: params[:recipe_id])
     end
   end
   
-  def edit
-    @comment = Comment.find(params[:id])
+  def create
+    @comment = Comment.new(comment_params)
+    if @comment.save
+      redirect_to recipe_comment_path(@comment)
+    else
+      render :new
+    end 
   end
   
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update_attributes(params[:comment])
-      flash[:notice] = "Successfully updated comment."
-      redirect_to recipe_url(@comment.recipe_id)
-    else
-      render :action => 'edit'
-    end
+    @comment.update(params.require(:comment))
+    redirect_to comment_path(@comment)
   end
+
+  def edit
+  if params[:recipe_id]
+    recipe = Recipe.find_by(id: params[:recipe_id])
+    if recipe.nil?
+      redirect_to recipe_path, alert: "Recipe not found."
+    else
+      @comment = recipe.comments.find_by(id: params[:id])
+      redirect_to recipe_comments_path(recipe), alert: "Recipe not found." if @comment.nil?
+    end
+  else
+    @comment = Comment.find(params[:id])
+  end
+end
   
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = "Successfully destroyed comment."
     redirect_to recipe_url(@comment.recipe_id)
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:title, :content, :recipe_id)
   end
 end
