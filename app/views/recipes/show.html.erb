@@ -16,9 +16,9 @@
 <%if @user%>
 <%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
 <%end%>
-<p>Comments:</p>
+<p>All Comments:</p>
 <% @recipe.comments.each do |comment| %>
-  <div><%= comment.content %></div>
+  <div><%= comment.title %></div>
 <% end %>
 
 

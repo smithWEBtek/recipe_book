@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
  end
 
  def find_by_recipe_id
-  Recipe.find_by(id: params[:recipe_id])
+  Recipe.find_by(params[:recipe_id])
 end
 
 def own_recipes

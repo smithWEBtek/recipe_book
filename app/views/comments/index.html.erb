@@ -1,8 +1,8 @@
 <h1>Recipe Comments</h1>
 <% @comments.each do |comment| %>
   <div>
-    <h2><%= comment.title %></h2>
-    <h3>by: <%= link_to comment.recipe.name, recipe_comments_path(comment.recipe) %></h3>
+    <h4><%= comment.title %></h4>
+    <h5>by: <%= link_to comment.recipe.user.name, user_path(comment.user) %></h5>
     <p><%= comment.content %></p>
   </div>
 <% end %>
