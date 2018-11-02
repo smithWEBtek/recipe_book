@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 
    def index
+    @user = current_user
     if params[:recipe_id]
       @comments = find_by_recipe_id.comments
     else
@@ -11,6 +12,8 @@ class CommentsController < ApplicationController
   def show
     if params[:recipe_id]
       @comment = find_by_recipe_id.comments.find(params[:id])
+      @comment.user = current_user
+      binding.pry
     else
       @comment = Comment.find(params[:id])
     end
@@ -24,10 +27,6 @@ class CommentsController < ApplicationController
   end
 end
 
-def show
-  comment = Comment.find_by(user: current_user, recipe: find_by_recipe_id)
-  redirect_to recipe_comments_path(@comment)
-end
 
 def create
   @comment = Comment.new(comment_params)
@@ -43,8 +42,8 @@ end
 
 def update
   @comment = Comment.find(params[:id])
-  @comment.update(params.require(:comment))
-  redirect_to comment_path(@comment)
+  @comment.update(comment_params)
+  redirect_to recipe_path(@comment.recipe)
 end
 
 def edit
@@ -61,12 +60,11 @@ def edit
   end
 end
 
-def destroy
-  @comment = Comment.find(params[:id])
-  @comment.destroy
-  flash[:notice] = "Successfully destroyed comment."
-  redirect_to recipe_url(@comment.recipe_id)
-end
+ def destroy
+    @comment = Comment.find_by(id: params[:id])
+    @comment.destroy!
+    redirect_to comments_path
+  end
 
 private
 

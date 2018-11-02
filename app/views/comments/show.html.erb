@@ -1,3 +1,0 @@
-<h1><%= @comment.title %></h1>
-<p>by <%= link_to @comment.recipe, recipe_path(@comment.recipe) if @comment.recipe %> (<%= link_to "Edit Comment", edit_recipe_comment_path(@comment.recipe, @comment) if @comment.recipe %>)</p>
-<p><%= @comment.content %> </p>

@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
   Recipe.find_by(params[:recipe_id])
 end
 
-def own_recipes
-  if !current_user.recipes
+def own_recipes?
+  if !!current_user.recipes
     redirect_to recipes_path
   end
 end

@@ -4,25 +4,19 @@
 <%= render 'ingredients/show_ingredients', recipe: @recipe %>
 <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
 <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
-<%= link_to  "New Comment", new_recipe_comment_path(@recipe)%> |
-<%if @user%>
+<%= link_to  "New Comment |", new_recipe_comment_path(@recipe)%>
+<%if logged_in? %>
+<%=link_to "All Comments", comments_path(@recipe)%><br>
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>
-<%else%>
-<%=form_tag ({controller: 'recipes', action: 'edit', method: 'patch'}) do %>
-<%=hidden_field_tag 'recipe_id', params[:id]%>
-<%=submit_tag "Edit Recipe" %>
-<%end%>
-<%end%>
-<%if @user%>
 <%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
 <%end%>
-<p>All Comments:</p>
-<% @recipe.comments.each do |comment| %>
-  <div><%= comment.title %></div>
-<% end %>
-
+<%= render 'comments/show', comments: @recipe.comments if @recipe.comments %>
 
 <%end%>
+
+
+
+
 
 
 

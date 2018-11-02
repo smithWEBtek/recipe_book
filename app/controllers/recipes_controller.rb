@@ -9,7 +9,6 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @user = current_user
     @recipe = Recipe.find(params[:id])
   end
 
@@ -40,8 +39,6 @@ class RecipesController < ApplicationController
   end
 
   def update
-    own_recipes
-    binding.pry
     recipe = Recipe.find_by(id: params[:id])
     if recipe.update(recipe_params)
       recipe.add_ingredients(recipe_ingredient_params)
