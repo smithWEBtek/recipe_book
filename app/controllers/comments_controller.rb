@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   def index
-    @user = current_user
     if params[:recipe_id]
       @comments = Recipe.find(params[:recipe_id]).comments
     else
@@ -9,18 +8,24 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.find_by(user: current_user, recipe: find_by_recipe_id)
+    if params[:recipe_id]
+      @comment = Recipe.find(params[:recipe_id]).comments.find(params[:id])
+    else
+      @comment = Comment.find_by(params[:id])
+    end
   end
 
   def new
-    @comment = Comment.new
+    if params[:recipe_id] && !Recipe.exists?(params[:recipe_id])
+      redirect_to recipes_path, alert: "Recipe not found."
+    else
+      @comment = Comment.new(recipe_id: params[:recipe_id])
+    end
   end
 
-  def create  
+  def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
-    @comment.recipe =  Recipe.find_by(params[:recipe_id])
-      binding.pry
     if @comment.save
       redirect_to recipe_comment_path(@comment.recipe.id, @comment)
     else
