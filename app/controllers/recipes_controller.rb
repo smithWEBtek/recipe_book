@@ -10,6 +10,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+   
   end
 
   def new
@@ -31,10 +32,10 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe = Recipe.find_by(id: params[:id])
-    if @recipe.user
+    if session[:user_id] == @recipe.user_id 
       recipe = 1.times.collect { @recipe.recipe_ingredients.build }
     else
-      redirect_to recipes_path
+      redirect_to recipes_path, notice: "That is not your recipe to edit!"
     end
   end
 

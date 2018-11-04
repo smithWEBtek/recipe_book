@@ -9,10 +9,12 @@
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>
 <%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
 <%end%>
-<p>Comments:</p>
-<% @recipe.comments.each do |comment| %>
+
+<h5>Comments: <br>
+ <% @recipe.comments.each do |comment| %>
   <div><%= link_to comment.title, recipe_comment_path(@recipe, comment) %></div>
 <% end %>
+</h5>
 <%end%>
 
 

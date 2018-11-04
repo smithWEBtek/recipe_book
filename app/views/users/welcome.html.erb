@@ -1,6 +1,13 @@
 Welcome!</br>
-<%=link_to("Sign-Up", new_user_path)%>
+<% if session[:user_id] %>
+  <%= @user.name %>
+  <%= @user.email %>
+  <%= @user.uid %>
+  <%= @user.image %>
+<% else %>
+  <a href='/auth/github'>Login with GitHub</a>
+<% end %>
+<%=link_to("Sign-Up", new_user_path)%><br>
 <%=link_to("Login", signin_path)%><br>
-<%= link_to('Log in with Facebook!', '/auth/facebook', id: "sign_in") %>
 
 

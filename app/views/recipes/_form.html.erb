@@ -1,12 +1,32 @@
   
   <h3> Recipe: </h3>
   <%=form_for @recipe do |f|%>
+   <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2>There were some errors:</h2>
+      <ul>
+        <% @recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <%if @recipe.errors[:title].any? %>
+      <div class='field_with_errors' >
+  <%else%>
+      <div class='field'>
+  <%end%>
   <%=f.label :title, "Title"%><br>
   <%=f.text_field :title%><br>
-
+</div>
+  <%if @recipe.errors[:category].any? %>
+      <div class='field_with_errors' >
+  <%else%>
+      <div class='field'>
+  <%end%>
   <%=f.label :category, "Category"%><br>
   <%=f.text_field :category%><br>
-
+</div>
 
   <h3>Ingredients:</h3>
   <div>
@@ -23,12 +43,22 @@
   </div>
 
   <br>
+    <%if @recipe.errors[:directions].any? %>
+      <div class='field_with_errors' >
+  <%else%>
+      <div class='field'>
+  <%end%>
   <%=f.label :directions, "Directions"%><br>
   <%=f.text_field :directions%><br>
-
+</div>
+  <%if @recipe.errors[:cook_time].any? %>
+      <div class='field_with_errors' >
+  <%else%>
+      <div class='field'>
+  <%end%>
   <%=f.label :cook_time, "Cook time (in minutes)"%><br>
   <%=f.number_field :cook_time%><br>
-
+</div>
   <%=f.submit%>
   <%end%>
 

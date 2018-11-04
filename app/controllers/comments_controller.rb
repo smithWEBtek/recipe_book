@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      redirect_to recipe_comment_path(@comment.recipe.id, @comment)
+      redirect_to recipe_path(@comment.recipe.id, @comment)
     else
       render :_form_errors
     end
@@ -41,14 +41,10 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    if params[:recipe_id]
-      recipe = Recipe.find_by(id: params[:recipe_id])
-      if recipe.nil?
-        redirect_to recipe_path, alert: "Recipe not found."
-      else
-        @comment = recipe.comments.find_by(id: params[:id])
-        redirect_to recipe_comments_path(recipe), alert: "Recipe not found." if @comment.nil?
-      end
+    @recipe = Recipe.find_by(id: params[:id])
+    @comment = Comment.find(params[:id])
+    if session[:user_id] != @comment.user_id 
+      redirect_to recipe_path, alert: "Not your comment to edit."
     else
       @comment = Comment.find(params[:id])
     end
