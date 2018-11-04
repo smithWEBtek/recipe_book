@@ -24,7 +24,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.most_ingredients
-    Recipe.includes(:ingredients).group(['ingredient_id','recipe_id']).order('COUNT(ingredient_id) ASC').references(:ingredients)
+    Recipe.includes(:ingredients).group(['recipe_id','ingredient_id']).order('COUNT(ingredient_id) ASC').references(:ingredients)
   end
   
   def self.search(search)

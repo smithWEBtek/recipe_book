@@ -1,16 +1,16 @@
 <h4>Comments:</h4>
-<% comments.each do |comment| %>
-<%= comment.title %><br>
-  <%= comment.content %><br>
+<% if @comment != nil%>
+<h5>Title: <%= @comment.title %></h5>
+<h5>Content: <%= @comment.content%></h5>
+<h5>by: <%= link_to @comment.user.name, user_path(@comment.user) %></h5>
+<% if logged_in? && current_user%>
+<%= link_to "Edit |", edit_recipe_comment_path(@comment.recipe_id, @comment)%>
+<%= link_to "Delete", comment_path(@comment), :confirm => "Are you sure?", :method => :delete %>
+<br>
+<br>
+<%end%>
+<%end%>
 
-  <h5>by: <%= link_to comment.user.name, user_path(comment.user) %></h5>
-  <% if logged_in? && current_user%>
-  <%= link_to "Edit |", edit_recipe_comment_path(comment.recipe, comment)%>
-  <%= link_to "Delete", comment_path(@recipe), :confirm => "Are you sure?", :method => :delete %>
-<% end %>
 
- 
 
-  <% end %>
 
-   

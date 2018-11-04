@@ -74,12 +74,6 @@ class RecipesController < ApplicationController
     render "recipes/index"
   end
 
-  def least_ingredients
-    @recipes = Recipe.least_ingredients
-    render "recipes/index"
-  end
-
-
 
   private
 
@@ -91,6 +85,4 @@ class RecipesController < ApplicationController
   def recipe_ingredient_params
     params.require(:recipe).permit(recipe_ingredients_attributes: [:amount, :ingredient_id, ingredient: [:name]])
   end
-
-
 end

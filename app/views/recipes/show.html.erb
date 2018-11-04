@@ -6,12 +6,13 @@
 <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
 <%= link_to  "New Comment |", new_recipe_comment_path(@recipe)%>
 <%if logged_in? %>
-<%=link_to "All Comments", comments_path(@recipe)%><br>
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>
 <%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
 <%end%>
-<%= render 'comments/show', comments: @recipe.comments if @recipe.comments %>
-
+<p>Comments:</p>
+<% @recipe.comments.each do |comment| %>
+  <div><%= link_to comment.title, recipe_comment_path(@recipe, comment) %></div>
+<% end %>
 <%end%>
 
 
