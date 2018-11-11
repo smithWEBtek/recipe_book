@@ -1,0 +1,8 @@
+<% if session[:user_id] %>
+  <h3>Welcome <%= @user.name %>!</h3>
+  <ul>
+  	<li>Click Home to get started!</li>
+  </ul>
+<% else %>
+  <%= link_to('Log in with Facebook!', '/auth/facebook') %>
+<% end %>

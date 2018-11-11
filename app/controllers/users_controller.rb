@@ -17,6 +17,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = find_by_id(User)
+    @recipes = @user.recipes 
+    @comments = @user.comments
+    
+  end
+
   private
 
   def user_params

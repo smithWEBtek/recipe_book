@@ -3,16 +3,20 @@ Rails.application.routes.draw do
   get 'recipes_find_newest' => 'recipes#find_newest'
   get 'recipes_find_quickest' => 'recipes#find_quickest'
   get 'recipes_most_ingredients' => 'recipes#most_ingredients'
-  get '/auth/github/callback' => 'sessions#create'
 
 
+  resources :users
 
   root 'users#welcome'
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+  get '/auth/facebook/callback' => 'sessions#create'
+  get '/auth/failure'
+
+
+
   
-  resources :users
   resources :ingredients
 
 
