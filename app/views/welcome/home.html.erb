@@ -4,5 +4,9 @@
   	<li>Click Home to get started!</li>
   </ul>
 <% else %>
-  <%= link_to('Log in with Facebook!', '/auth/facebook') %>
+Welcome!</br>
+<%=link_to("Sign-Up |", new_user_path)%>
+<%=link_to("Login ", login_path)%><br>
+<%= link_to "Sign in with Google", "/auth/google_oauth2", id: "login" %>
 <% end %>
+

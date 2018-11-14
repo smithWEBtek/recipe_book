@@ -38,7 +38,7 @@ class Recipe < ActiveRecord::Base
 
   
   def delete_ingredients
-    ingredients.size.times do
+      ingredients.size.times do
       ingredient = RecipeIngredient.find_by(recipe_id: self.id)
       ingredient.delete
     end

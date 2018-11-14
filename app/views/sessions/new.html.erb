@@ -1,9 +1,12 @@
+
 <h1>Login</h1>
 
 
-<%= form_tag '/signin' do %>
+<%= form_tag '/login' do %>
 
 <div>Name:</div> <div><%= text_field_tag :name %></div>
+  <%= hidden_field_tag :user_id %>
+
 <div>Password:</div> <div><%= password_field_tag :password %></div>
 <%= submit_tag "Submit" %>
 
@@ -11,4 +14,4 @@
 <% end %>
 <%=link_to("Sign-Up", new_user_path)%><br>
 
-<%= link_to('Log in with Facebook!', '/auth/facebook') %>
+<%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>

@@ -21,8 +21,10 @@ class UsersController < ApplicationController
     @user = find_by_id(User)
     @recipes = @user.recipes 
     @comments = @user.comments
-    
   end
+
+
+
 
   private
 

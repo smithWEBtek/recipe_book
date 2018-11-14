@@ -4,12 +4,14 @@ one:
   provider: MyString
   uid: MyString
   name: MyString
+  password_digest: MyString
   oauth_token: MyString
-  oauth_expires_at: 2018-11-10 08:01:47
+  oauth_expires_at: 2018-11-13 15:34:32
 
 two:
   provider: MyString
   uid: MyString
   name: MyString
+  password_digest: MyString
   oauth_token: MyString
-  oauth_expires_at: 2018-11-10 08:01:47
+  oauth_expires_at: 2018-11-13 15:34:32

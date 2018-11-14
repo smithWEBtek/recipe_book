@@ -7,14 +7,14 @@ Rails.application.routes.draw do
 
   resources :users
 
-  root 'users#welcome'
-  get '/signin' => 'sessions#new'
-  post '/signin' => 'sessions#create'
+  root 'welcome#home'
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  get '/auth/facebook/callback' => 'sessions#create'
-  get '/auth/failure'
+  get 'auth/:provider/callback' => 'sessions#create'
 
-
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
 
   
   resources :ingredients
