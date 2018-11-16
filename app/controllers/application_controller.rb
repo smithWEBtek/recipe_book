@@ -8,23 +8,13 @@ class ApplicationController < ActionController::Base
   
   def logged_in?
    !!current_user
- end
+  end
 
- def find_by_recipe_id
-  Recipe.find_by(params[:recipe_id])
-end
-
- def find_by_id(class_name)
+  def find_by_id(class_name)
     class_name.find_by(id: params[:id])
   end
 
-def own_recipes?
-  if !!current_user.recipes
-    redirect_to recipes_path
+  def errors(method)
+    object.errors.full_messages_for(method).map { |m| help_block(m) }.join.html_safe
   end
-end
-
-def errors(method)
-  object.errors.full_messages_for(method).map { |m| help_block(m) }.join.html_safe
-end
 end

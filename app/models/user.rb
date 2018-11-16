@@ -8,15 +8,12 @@ class User < ActiveRecord::Base
 	validates :password_digest, :presence => true, 
 				:confirmation => true,
 				:length => { minimum: 8},
-			    :unless => :already_has_password?
+			    :unless => :has_password?
 
 	def has_password?
 		!self.password_digest.blank?
 	end
 	
-	def already_has_password?
-    	!self.password_digest.blank?
-  	end
 
 	def self.from_omniauth(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|

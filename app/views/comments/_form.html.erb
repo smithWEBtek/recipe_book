@@ -1,9 +1,9 @@
-  <%= form_for(@comment) do |f| %>
-
-  <label>Title:</label><br>
-  <%= f.hidden_field :recipe_id %>
-  <%= f.text_field :title %><br>
-  <label>Comment </label><br>
-  <%= f.text_area :content %><br>
-  <%= f.submit %>
-  <% end %>
+ <%= render 'users/show', user: @user %>
+ <%= form_for(@comment) do |f| %>
+ <label>Title:</label><br>
+ <%= f.hidden_field :recipe_id %>
+ <%= f.text_field :title %><br>
+ <label>Comment </label><br>
+ <%= f.text_area :content %><br>
+ <%= f.submit %>
+ <% end %>

@@ -24,15 +24,13 @@ class UsersController < ApplicationController
   end
 
 
-
-
   private
 
   def user_params
     params.require(:user).permit(:name, :password)
   end
   def lookup_user
-    @user = User.find_by(id: params[:id])
+    @user = find_by_id(User)
   end
 
   def require_login

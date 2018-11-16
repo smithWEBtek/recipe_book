@@ -1,4 +1,7 @@
  <%if logged_in? %>
+ <%= render 'users/show', user: @user %>
+
+
  <%= link_to "Sign out", logout_path, method: :delete %><br><br>
  <%=link_to "Add Recipe", new_recipe_path%><br>
  <%= link_to "Newest", recipes_find_newest_path%><br> 

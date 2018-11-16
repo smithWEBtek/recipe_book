@@ -1,14 +1,11 @@
-<%   Recipe.find_by(params[:recipe_id]).title %>
-<h4>Comments:</h4>
+<h4>-Comments-</h4>
 <% if @comment != nil%>
 <h5>Title: <%= @comment.title %></h5>
 <h5>Content: <%= @comment.content%></h5>
-<h5>by: <%= link_to @comment.user.name, user_path(@comment.user) %></h5>
+<h5>By: <%= link_to @comment.user.name, user_path(@comment.user) %></h5>
 <% if logged_in? && current_user%>
 <%= link_to "Edit |", edit_recipe_comment_path(@comment.recipe_id, @comment)%>
-<%= link_to "Delete", comment_path(@comment), :confirm => "Are you sure?", :method => :delete %>
-<br>
-<br>
+<%= link_to "Delete", comment_path(@comment), :method => :delete %>
 <%end%>
 <%end%>
 

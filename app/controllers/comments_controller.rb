@@ -1,17 +1,10 @@
 class CommentsController < ApplicationController
-  def index
-    if params[:recipe_id]
-      @comments = Recipe.find(params[:recipe_id]).comments
-    else
-     @comments = Comment.all
-    end
-  end
 
   def show
     if params[:recipe_id]
       @comment = Recipe.find(params[:recipe_id]).comments.find(params[:id])
     else
-      @comment = Comment.find_by(params[:id])
+      @comment = find_by_id(Comment)
     end
   end
 
@@ -35,26 +28,34 @@ class CommentsController < ApplicationController
 
 
   def update
-    @comment = Comment.find(params[:id])
+    @comment = find_by_id(Comment)
     @comment.update(comment_params)
     redirect_to recipe_path(@comment.recipe)
   end
 
   def edit
-    @recipe = Recipe.find_by(id: params[:id])
-    @comment = Comment.find(params[:id])
+    @recipe = find_by_id(Recipe)
+    @comment = find_by_id(Comment)
     if session[:user_id] != @comment.user_id 
       redirect_to recipe_path, alert: "Not your comment to edit."
     else
-      @comment = Comment.find(params[:id])
+      @comment = find_by_id(Comment)
     end
   end
 
   def destroy
-    @comment = Comment.find_by(id: params[:id])
-    @comment.destroy!
-    redirect_to recipes_path
+    @recipe = find_by_id(Recipe)
+    @comment = find_by_id(Comment)
+    if session[:user_id] != @comment.user_id 
+      redirect_to recipe_path, alert: "Not your comment to delete."
+    else
+      @comment = find_by_id(Comment)
+      @comment.destroy!
+      redirect_to recipes_path
+    end
   end
+
+
 
   private
 

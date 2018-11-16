@@ -10,8 +10,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
-   
+    @recipe = find_by_id(Recipe)
   end
 
   def new
@@ -20,11 +19,11 @@ class RecipesController < ApplicationController
   end
 
   def create
-    recipe = current_user.recipes.new(recipe_params)
+    @recipe = current_user.recipes.new(recipe_params)
     if Recipe.valid_entry(params)
-      recipe.save
-      recipe.add_ingredients(recipe_ingredient_params)
-      redirect_to recipe_path(recipe)
+      @recipe.save
+      @recipe.add_ingredients(recipe_ingredient_params)
+      redirect_to recipe_path(@recipe)
     else
       redirect_to new_recipe_path, notice: "Make sure all fields are complete"
     end
@@ -32,7 +31,7 @@ class RecipesController < ApplicationController
 
 
   def edit
-    @recipe = Recipe.find_by(id: params[:id])
+    @recipe = find_by_id(Recipe)
     if session[:user_id] == @recipe.user_id 
       recipe = 1.times.collect { @recipe.recipe_ingredients.build }
     else
@@ -40,8 +39,9 @@ class RecipesController < ApplicationController
     end
   end
 
+
   def update
-    recipe = Recipe.find_by(id: params[:id])
+    recipe = find_by_id(Recipe)
     if recipe.update(recipe_params)
       recipe.add_ingredients(recipe_ingredient_params)
       redirect_to recipe_path(recipe), notice: "Your recipe has successfully been updated"
@@ -51,10 +51,17 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find_by(id: params[:id])
-    @recipe.destroy!
-    redirect_to recipes_path
+    @recipe = find_by_id(Recipe)
+    if session[:user_id] != @recipe.user_id 
+      redirect_to recipe_path, alert: "Not your recipe to delete."
+    else
+      @recipe = find_by_id(Recipe)
+      @recipe.destroy!
+      redirect_to recipes_path
+    end
   end
+
+
 
   def sort_by_category
     @recipes = Recipe.category

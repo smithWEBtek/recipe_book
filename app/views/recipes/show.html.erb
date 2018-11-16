@@ -1,5 +1,6 @@
 <% if !@recipe.nil? %>
 <h4><%="#{@recipe.title}"%></h4>
+<h6>Created By: <%="#{@recipe.user.name}"%></h6>
 <h5>Category-  <%="#{@recipe.category}"%></h5>
 <%= render 'ingredients/show_ingredients', recipe: @recipe %>
 <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
@@ -7,7 +8,7 @@
 <%= link_to  "New Comment |", new_recipe_comment_path(@recipe)%>
 <%if logged_in? %>
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>
-<%=link_to "Delete", recipe_path(@recipe), :confirm => "Are you sure?", :method => :delete%>
+<%=link_to "Delete", recipe_path(@recipe), :method => :delete%>
 <%end%>
 
 <h5>Comments: <br>
