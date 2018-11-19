@@ -1,12 +1,11 @@
 class UsersController < ApplicationController
-  before_action :lookup_user, only: [:show, :edit]
-  before_action :require_login
-  skip_before_action :require_login, only: [:new, :create, :welcome]
 
+  #new instantiates a new ActiveRecord model without saving it to the database  def new
   def new
     @user = User.new
   end
 
+  #create immediately attempts to save it, as if you had called #new and then #save.
   def create
     @user = User.new(user_params)
     if @user.save
@@ -29,14 +28,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :password)
   end
-  def lookup_user
-    @user = find_by_id(User)
-  end
 
-  def require_login
-    if !session[:user_id]
-      redirect_to root_path
-    end
-  end
   
 end

@@ -1,12 +1,13 @@
 class SessionsController <ApplicationController
 
+  #if oauth is present, login via oauth
   def create
     if auth.present?
         @user = User.from_omniauth(request.env["omniauth.auth"])
         session[:user_id] = @user.id
         redirect_to user_path(@user), notice: "You have successfully logged in"
       end
-    
+    #if oauth is not present, find and validate user by name and password and go to users show 
     if params[:name].present?
       @user = User.find_by_name(params[:name])
       if @user && @user.authenticate(params[:password])
@@ -23,7 +24,7 @@ class SessionsController <ApplicationController
   end
 end
 
-
+  #auth method requesting credentials for google auth credentials
   def auth
     request.env['omniauth.auth']
   end

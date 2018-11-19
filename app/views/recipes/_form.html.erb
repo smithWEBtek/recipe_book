@@ -1,64 +1,28 @@
 
   <h3> Recipe: </h3>
   <%=form_for @recipe do |f|%>
-   <% if @recipe.errors.any? %>
-    <div id="error_explanation">
-      <h2>There were some errors:</h2>
-      <ul>
-        <% @recipe.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-   <%if @recipe.errors[:title].any? %>
-      <div class='field_with_errors' >
-  <%else%>
-      <div class='field'>
-  <%end%>
+  <%= render 'layouts/form_errors', form: @recipe %>
+
   <%=f.label :title, "Title"%><br>
   <%=f.text_field :title%><br>
-</div>
-  <%if @recipe.errors[:category].any? %>
-      <div class='field_with_errors' >
-  <%else%>
-      <div class='field'>
-  <%end%>
+
   <%=f.label :category, "Category"%><br>
   <%=f.text_field :category%><br>
-</div>
 
   <h3>Ingredients:</h3>
-  <div>
     <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
-    <div>  
       <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.order('name ASC').all, :id, :name, include_blank: 'Select Ingredient' %>
       Amount: <%= recipe_ingredient.text_field :amount %>
 
       <%= recipe_ingredient.fields_for :ingredient, recipe.ingredients.build do |ingredient| %>
-      Add new item: <%= ingredient.text_field :name %>
+      -- Add new: <%= ingredient.text_field :name %><br>
       <% end %>
-    </div>
     <% end %>
-  </div>
-
-  <br>
-    <%if @recipe.errors[:directions].any? %>
-      <div class='field_with_errors' >
-  <%else%>
-      <div class='field'>
-  <%end%>
   <%=f.label :directions, "Directions"%><br>
   <%=f.text_field :directions%><br>
-</div>
-  <%if @recipe.errors[:cook_time].any? %>
-      <div class='field_with_errors' >
-  <%else%>
-      <div class='field'>
-  <%end%>
+
   <%=f.label :cook_time, "Cook time (in minutes)"%><br>
   <%=f.number_field :cook_time%><br>
-</div>
   <%=f.submit%>
   <%end%>
 

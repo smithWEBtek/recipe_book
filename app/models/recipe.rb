@@ -36,7 +36,7 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  
+  #deletes ingredients to avoid duplicating entire recipe when editing
   def delete_ingredients
       ingredients.size.times do
       ingredient = RecipeIngredient.find_by(recipe_id: self.id)

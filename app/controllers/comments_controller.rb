@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
 
+  #find comment based on recipe id
   def show
     if params[:recipe_id]
       @comment = Recipe.find(params[:recipe_id]).comments.find(params[:id])
@@ -8,6 +9,7 @@ class CommentsController < ApplicationController
     end
   end
 
+  #create a new comment if the recipe id exists and attach it to that recipe id
   def new
     if params[:recipe_id] && !Recipe.exists?(params[:recipe_id])
       redirect_to recipes_path, alert: "Recipe not found."
@@ -16,6 +18,7 @@ class CommentsController < ApplicationController
     end
   end
 
+  #create a comment and attach it to the current user.
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
@@ -26,13 +29,14 @@ class CommentsController < ApplicationController
     end
   end
 
-
+  #find the comment by id and update
   def update
     @comment = find_by_id(Comment)
     @comment.update(comment_params)
     redirect_to recipe_path(@comment.recipe)
   end
 
+  #find comment by id and by recipe id, if user who created it wants to edit, allow or prevent and redirect to recipe
   def edit
     @recipe = find_by_id(Recipe)
     @comment = find_by_id(Comment)
@@ -43,6 +47,7 @@ class CommentsController < ApplicationController
     end
   end
 
+  #find comment by id, verify user created it before deleting, re-direct and prevent if not
   def destroy
     @recipe = find_by_id(Recipe)
     @comment = find_by_id(Comment)
@@ -59,6 +64,7 @@ class CommentsController < ApplicationController
 
   private
 
+  #params for comments
   def comment_params
     params.require(:comment).permit(:title, :content, :recipe_id)
   end
