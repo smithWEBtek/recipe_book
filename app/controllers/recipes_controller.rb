@@ -51,7 +51,7 @@ class RecipesController < ApplicationController
       recipe.add_ingredients(recipe_ingredient_params)
       redirect_to recipe_path(recipe), notice: "Your recipe has successfully been updated"
     else  
-      render :_form_errors
+      redirect_to new_recipe_path, alert: recipe.errors.full_messages.each {|m| m}.join
     end
   end
 
