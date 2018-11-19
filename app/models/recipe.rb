@@ -19,10 +19,6 @@ class Recipe < ActiveRecord::Base
     order("ID DESC").limit(total)
   end
 
-  def self.category(total = all.size)
-    order("category DESC").limit(total)
-  end
-
   def self.most_ingredients
     Recipe.includes(:ingredients).group(['recipe_id','ingredient_id']).order('COUNT(ingredient_id) ASC').references(:ingredients)
   end
