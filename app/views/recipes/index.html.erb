@@ -14,15 +14,8 @@
  <%=link_to recipe.title, recipe_path(recipe)%> <br>
  <%end%>
  <% else %>
- <%= link_to "Sign in", login_path %><br>
-
+  <%= render template: 'users/welcome' %>
  <%end%>
-
-
- 
- <br>
-
-
 
 
 

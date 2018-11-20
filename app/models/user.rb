@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 	has_many :recipes
 	has_many :comments
 	has_many :ingredients, through: :recipes
-	validates :name, presence: true, length: { maximum: 12 }
+	validates :name, presence: true
 	validates :name, uniqueness: true
 	validates :password_digest, :presence => true, 
 				:confirmation => true,

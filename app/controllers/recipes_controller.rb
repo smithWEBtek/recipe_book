@@ -38,7 +38,7 @@ class RecipesController < ApplicationController
   def edit
     @recipe = find_by_id(Recipe)
     if session[:user_id] == @recipe.user_id 
-      recipe = 1.times.collect { @recipe.recipe_ingredients.build }
+      recipe = 3.times.collect { @recipe.recipe_ingredients.build }
     else
       redirect_to recipes_path, notice: "That is not your recipe to edit!"
     end
