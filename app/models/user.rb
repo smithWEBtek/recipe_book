@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 	validates :name, uniqueness: true
 	validates :password_digest, :presence => true, 
 				:confirmation => true,
-				:length => { minimum: 8},
 			    :unless => :has_password?
 
 	def has_password?
