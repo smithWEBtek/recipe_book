@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 	validates :name, presence: true
 	validates :name, uniqueness: true
 	validates :password_digest, :presence => true, 
-				:confirmation => true,
 			    :unless => :has_password?
 
 	def has_password?
