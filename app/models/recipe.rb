@@ -20,9 +20,10 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.most_ingredients
-    Recipe.includes(:ingredients).group(['recipe_id','ingredient_id']).order('COUNT(ingredient_id) ASC').references(:ingredients)
+    Recipe.select('recipes.*, count(ingredient_id) as ingredients_count').joins(:ingredients).group(:id).order('ingredients_count DESC')
   end
   
+
   def self.search(search)
     if !Ingredient.find_by(name: search)
       Recipe.none
