@@ -1,24 +1,33 @@
-# README
+# RecipeBook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app provides a quick easy way to store recipes in one place. Also, view and leave comments for other user's recipes. 
 
-Things you may want to cover:
+## Installation
 
-* Ruby version : ruby 2.3.3p222
+    $ npm install recipe_book
 
-* System dependencies : rails 5.2.1, omniauth-oath2 1.3.1, omniauth-google-oauth2 0.2.1
+## Usage
 
-* Configuration
+Add recipes using exisiting ingredients or add new ingredients. Search by a specific ingredient. Sort all recipes by 
+	-most recent or "newest" 
+	-"quickest" recipe to make 
+	-least ingredients or "ingredient count".  
+Leave comments to keep track of which recipes you like or tips for the next time the recipe is made.
 
-* Database creation
+## Built with
 
-* Database initialization
+	Ruby version: 2.3.3
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Contributing
 
-* Deployment instructions: fork/clone git hub repository https://github.com/netzay/recipe_book, bundle install, run using rails s.
+Bug reports and pull requests are welcome on GitHub at https://github.com/netzay/recipe_book. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-* ...
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the RecipeBook project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/netzay/recipe_book/blob/master/CODE_OF_CONDUCT.md).
+

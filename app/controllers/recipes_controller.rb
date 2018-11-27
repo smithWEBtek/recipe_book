@@ -22,15 +22,14 @@ class RecipesController < ApplicationController
     @ingredients = 10.times.collect { @recipe.recipe_ingredients.build }
   end
 
-  #create recipe, associate to user, verify fields are complete and add ingredients to recipe before saving and redirec to show page for recipe
+  #create recipe, associate to user, verify fields are complete and add ingredients to recipe before saving and redirect to show page for recipe
   def create
     @recipe = current_user.recipes.new(recipe_params)
-    if Recipe.valid_entry(params)
-      @recipe.save
+    if @recipe.save
       @recipe.add_ingredients(recipe_ingredient_params)
       redirect_to recipe_path(@recipe)
     else
-      redirect_to new_recipe_path, notice: "Make sure all fields are complete"
+      render :new
     end
   end
 

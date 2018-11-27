@@ -1,0 +1,7 @@
+<h5>Comments: <br>
+ <% @comments.each do |comment| %>
+   <div><%= comment.title %></div>
+  <div><%= comment.content %></div>
+    <div><%= comment.user.name %></div><br>
+
+<% end %>

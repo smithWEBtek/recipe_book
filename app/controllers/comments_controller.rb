@@ -1,5 +1,8 @@
 class CommentsController < ApplicationController
 
+  def index
+    @comments = Recipe.find(params[:recipe_id]).comments.all
+  end
   #find comment based on recipe id
   def show
     if params[:recipe_id]
@@ -25,7 +28,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to recipe_path(@comment.recipe.id, @comment)
     else
-      render :_form_errors
+      render :new
     end
   end
 

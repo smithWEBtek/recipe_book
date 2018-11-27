@@ -1,7 +1,6 @@
 
   <h3> Recipe: </h3>
   <%=form_for @recipe do |f|%>
-  <%= render 'layouts/form_errors', form: @recipe %>
 
   <%=f.label :title, "Title"%><br>
   <%=f.text_field :title%><br>
@@ -10,6 +9,7 @@
   <%=f.text_field :category%><br>
 
   <h3>Ingredients:</h3>
+
     <%= f.fields_for :recipe_ingredients, @ingredients do |recipe_ingredient| %>
       <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.order('name ASC').all, :id, :name, include_blank: 'Select Ingredient' %>
       Amount: <%= recipe_ingredient.text_field :amount %>
@@ -23,6 +23,8 @@
 
   <%=f.label :cook_time, "Cook time (in minutes)"%><br>
   <%=f.number_field :cook_time%><br>
+
   <%=f.submit%>
   <%end%>
+    <%= render 'layouts/form_errors', form: @recipe %>
 

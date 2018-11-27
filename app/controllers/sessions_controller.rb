@@ -21,6 +21,8 @@ class SessionsController <ApplicationController
       end
       render 'new'
     end
+    else
+      redirect_to '/login'
   end
 end
 

@@ -5,6 +5,7 @@
 <%= render 'ingredients/show_ingredients', recipe: @recipe %>
 <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
 <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
+<%= link_to "All Comments |", recipe_comments_path(@recipe) %>
 <%= link_to  "New Comment |", new_recipe_comment_path(@recipe)%>
 <%if logged_in? %>
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>

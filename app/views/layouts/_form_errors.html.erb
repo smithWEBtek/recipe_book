@@ -1,6 +1,6 @@
   <% if @recipe.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this from being saved:</h2>
+    <h5><%= pluralize(@recipe.errors.count, "error") %> prohibited this from being saved:</h5>
     <ul>
       <% @recipe.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
