@@ -9,9 +9,9 @@ This app provides a quick easy way to store recipes in one place. Also, view and
 ## Usage
 
 Add recipes using exisiting ingredients or add new ingredients. Search by a specific ingredient. Sort all recipes by 
-	*most recent or "newest" 
-	*"quickest" recipe to make 
-	*least ingredients or "ingredient count".  
+	* most recent or "newest" 
+	  * "quickest" recipe to make 
+	     * least ingredients or "ingredient count".  
 Leave comments to keep track of which recipes you like or tips for the next time the recipe is made.
 
 ## Built with
