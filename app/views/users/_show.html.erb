@@ -1,1 +1,7 @@
-<h5>Welcome <%= current_user.name%>!</h5>
+<%=link_to "| Add Recipe |", new_recipe_path%>
+ <%= link_to "Newest |", recipes_find_newest_path%>
+ <%= link_to "Quickest cook time |", recipes_find_quickest_path%>
+ <%= link_to "Search |", search_path%>
+ <%= link_to "Ingredient count |", recipes_most_ingredients_path%>
+ <%= link_to "Your Recipes |", your_recipes_path, class: "your_recipes"%>
+ <%= link_to "Sign out |", logout_path, method: :delete %><br><br>

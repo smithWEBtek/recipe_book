@@ -5,7 +5,7 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, through: :recipe_ingredients
   validates :title, presence: true
   validates :category, presence: true
-  validates :directions, presence: true, uniqueness: true
+  validates :directions, presence: true
   validates :title, presence: true
   validates :cook_time, presence: true
 
@@ -36,6 +36,11 @@ class Recipe < ActiveRecord::Base
       ingredient = Ingredient.where("name LIKE ?", search)[0]
       @recipes = ingredient.recipes     
     end
+  end
+
+  def next
+    recipe = Recipe.where("id > ?", id).first
+    recipe ? recipe : Recipe.first
   end
 
   #deletes ingredients to avoid duplicating entire recipe when editing

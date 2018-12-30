@@ -9,6 +9,7 @@ gem 'omniauth-oauth2', '~> 1.3.1'
 gem "omniauth-google-oauth2", "~> 0.2.1"
 gem 'rack', '~> 2.0.6'
 gem "rdoc"
+gem 'active_model_serializers'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

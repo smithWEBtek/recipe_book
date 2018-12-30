@@ -1,10 +1,16 @@
 class CommentsController < ApplicationController
 
   def index
+    @recipe = Recipe.find(params[:recipe_id])
     @comments = Recipe.find(params[:recipe_id]).comments.all
+    respond_to do |f|
+      f.html
+      f.json {render json: @comments}
+    end
   end
   #find comment based on recipe id
   def show
+    @recipe = find_by_id(Recipe)
     if params[:recipe_id]
       @comment = Recipe.find(params[:recipe_id]).comments.find(params[:id])
     else

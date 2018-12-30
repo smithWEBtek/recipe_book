@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   get 'auth/:provider/callback' => 'sessions#create'
-  
+
+  get '/recipes/:id/next' => 'recipes#next'
+  get '/your_recipes' => 'recipes#your_recipes'
   get '/search' => 'recipes#search'
   get 'recipes_find_newest' => 'recipes#find_newest'
   get 'recipes_find_quickest' => 'recipes#find_quickest'

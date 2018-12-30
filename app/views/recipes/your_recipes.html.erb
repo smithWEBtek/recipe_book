@@ -1,28 +1,10 @@
- <%if logged_in? %>
+<%if logged_in? %>
  <%= render 'users/show', user: @user %>
 
-
- 
-
- 
-<h3>All Recipes</h3>
- <% @recipes.each do |recipe|%>
+<h3>Your Recipes</h3>
+ <% current_user.recipes.each do |recipe|%>
  <%=link_to recipe.title, recipe_path(recipe)%> <br>
  <%end%>
  <% else %>
   <%= render template: 'users/welcome' %>
  <%end%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

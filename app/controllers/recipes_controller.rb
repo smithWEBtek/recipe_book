@@ -1,9 +1,32 @@
 class RecipesController < ApplicationController
 
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :next]
   #find all recipes and current user
   def index
     @recipes = Recipe.all
     @user = current_user
+    respond_to do |f|
+      f.html
+      f.json {render json: @recipes}
+    end
+  end
+
+  def next
+    if @recipe
+      @next_recipe = @recipe.next
+      binding.pry
+      render json: @next_recipe
+    else
+      redirect_to recipes_path
+    end
+  end
+
+  def your_recipes
+    @recipes = current_user.recipes.all
+    respond_to do |f|
+      f.html
+      f.json {render json: @recipes}
+    end
   end
 
   #search method call from recipe model for search parameter
@@ -13,7 +36,11 @@ class RecipesController < ApplicationController
 
   #find recipe by id and display
   def show
-    @recipe = find_by_id(Recipe)
+    set_recipe
+    respond_to do |f|
+      f.html
+      f.json {render json: @recipe}
+    end
   end
 
   #create new recipe and provide ingredient fields for existing and to create new
@@ -86,6 +113,11 @@ class RecipesController < ApplicationController
 
 
   private
+
+  #find recipe
+  def set_recipe
+    @recipe = Recipe.find_by_id(params[:id])
+  end
 
   #params for a recipe
   def recipe_params

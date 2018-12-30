@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Recipe Book</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -12,13 +14,25 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-\
+
         </button>
         <a class="navbar-brand" href="<%= recipes_path %>"/>Recipe Book</a>
+        <a class="navbar-brand" text-align = "center" href="<%= your_recipes_path %>"/>Hi <%= current_user.name%>!</a>
+
+
+       <!--  <a class="navbar-brand" href="<%= new_recipe_path %>"/> Add New </a>
+        <a class="navbar-brand" href="<%= recipes_find_newest_path %>"/> Newest </a>
+        <a class="navbar-brand" href="<%= recipes_find_quickest_path %>"/> Quickest </a>
+        <a class="navbar-brand" href="<%= search_path %>"/> Search </a>
+        <a class="navbar-brand" href="<%= recipes_most_ingredients_path %>"/> Ingredient Count </a>
+        <a class="navbar-brand" href="<%= logout_path %>" method: :delete"/> - Sign Out - </a> -->
+
+
       </div>
       <div class="navbar-collapse collapse">
+
         <ul class="nav navbar-nav">
-          
+
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -26,6 +40,8 @@
   <%= render 'layouts/errors' %>
 
   <div class="container"  role="main">
+            <div id="app-container">
+
     <%= yield %>
   </div>
 </body>
