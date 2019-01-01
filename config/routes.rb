@@ -10,7 +10,8 @@ Rails.application.routes.draw do
 
   get '/recipes/:id/next' => 'recipes#next'
   get '/your_recipes' => 'recipes#your_recipes'
-  get '/search' => 'recipes#search'
+	get '/search' => 'recipes#search'
+	
   get 'recipes_find_newest' => 'recipes#find_newest'
   get 'recipes_find_quickest' => 'recipes#find_quickest'
   get 'recipes_most_ingredients' => 'recipes#most_ingredients'
