@@ -14,20 +14,19 @@ class RecipesController < ApplicationController
   def next
     if @recipe
       @next_recipe = @recipe.next
-      binding.pry
       render json: @next_recipe
     else
       redirect_to recipes_path
     end
   end
 
-  def your_recipes
-    @recipes = current_user.recipes.all
-    respond_to do |f|
-      f.html
-      f.json {render json: @recipes}
-    end
-  end
+  # def your_recipes
+  #   @recipes = current_user.recipes.all
+  #   respond_to do |f|
+  #     f.html
+  #     f.json {render json: @recipes}
+  #   end
+  # end
 
   #search method call from recipe model for search parameter
   def search
@@ -39,9 +38,10 @@ class RecipesController < ApplicationController
     set_recipe
     respond_to do |f|
       f.html
-      f.json {render json: @recipe}
+      f.json {render json: @user}
     end
   end
+
 
   #create new recipe and provide ingredient fields for existing and to create new
   def new

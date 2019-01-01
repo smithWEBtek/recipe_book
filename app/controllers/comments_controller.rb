@@ -65,7 +65,7 @@ class CommentsController < ApplicationController
     else
       @comment = find_by_id(Comment)
       @comment.destroy!
-      redirect_to recipes_path
+      redirect_to recipe_path
     end
   end
 

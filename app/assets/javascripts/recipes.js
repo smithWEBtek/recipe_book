@@ -4,7 +4,7 @@ $(() => {
 })
 
 const ClickHandlers = () => {
-	$(`.your_recipes`).on('click', (e) => {
+	$(`.recipes`).on('click', (e) => {
 		e.preventDefault()
 		//history.pushState(null, null, "recipes")
 		getRecipes()
@@ -23,12 +23,10 @@ const ClickHandlers = () => {
 			$('#app-container').append(recipeHtml)		
 		})
 	})
-	$(document).on('click', ".next-recipe", function(e){
-				console.log('hi')
-				e.preventDefault()
+	$(document).on('click', '.next_recipe', function(e){
 				let id = $(this).attr('data-id')
-				console.log(this)
-				fetch(`/recipes/${id}.json`)
+				console.log(id)
+				fetch(`/recipes/${id}/next.json`)				
 				
 			})
 }
@@ -36,12 +34,13 @@ const ClickHandlers = () => {
 
 
 const getRecipes = () => {
-	fetch('/your_recipes.json')
+	fetch('/recipes.json')
 			.then(res => res.json())
 			.then(recipes => {
 				$('#app-container').html('')
 				recipes.forEach((recipe) => {
 					let newRecipe = new Recipe(recipe)
+
 					let recipeHtml = newRecipe.formatIndex()
 					$('#app-container').append(recipeHtml)
 				
@@ -58,38 +57,25 @@ function Recipe(recipe){
 	this.title = recipe.title
 	this.category = recipe.category
 	this.directions = recipe.directions
-	this.recipe_ingredients = recipe.recipe_ingredients
 	this.cook_time = recipe.cook_time
-	this.user = recipe.user
-	this.comments = recipe.content
 }
 
-function Comment(comment){
-	this.id = comment.id
-	this.title = comment.title
-	this.content = comment.content
-	this.user = comment.user
-}
+
 //finish adding html for index markup of prototyping
 Recipe.prototype.formatIndex = function(){
 	let recipeHtml = `
-	<a href= "/recipes/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
+	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
 	`
+	console.log(this)
+	console.log(recipeHtml)
 	return recipeHtml
 }
 Recipe.prototype.formatShow = function(){
 	let recipeHtml = `
-	<h4>${this.title}</h4>
+	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" 
 
-	<button class= "next-recipe">Next</button>
+	<button class= "next_recipe">${this.title} Comments</button>
 	`
 	return recipeHtml
 }
 
-Comment.prototype.formatShow = function(){
-	let commentHtml = `
-	<h5>${this.title}</h5>
-	<h6>${this.content}<h/6>
-	`
-	return commentHtml
-}
