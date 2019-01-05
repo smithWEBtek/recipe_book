@@ -15,14 +15,7 @@ const CommentClickHandlers = () => {
 }
 
 const getComments = (url) => {
-	// let id = $(this).attr('data-id')
-	// console.log(id)
-
-
-	// recipes/1/comments.json
-
 	let newUrl = url + '.json'
-
 	fetch(newUrl)
 		.then(res => res.json()
 			.then(comments => {
@@ -42,11 +35,14 @@ function Comment(comment) {
 	this.title = comment.title
 	this.content = comment.content
 	this.user = comment.user
+	this.recipe = comment.recipe.id
 }
 
 Comment.prototype.formatShow = function () {
+
 	let commentHtml = `
-	<a href= "/recipes/${this.id}/comments" data-id="${this.id}"
+		<h4> Comments: </h4>
+	<a href= "/recipes/${this.recipe}/comments/${this.id}" data-id="${this.id}"
 	<h5>${this.title}</h5><br>
 	`
 	return commentHtml

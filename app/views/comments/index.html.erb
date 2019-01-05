@@ -1,8 +1,6 @@
-<h4><%= @recipe.title %></h4> 
-<h5>Comments: </h5>
+<h5><strong>Comments <strong></h5>
 <% @comments.each do |comment| %>
-<div>Title: <%= comment.title %></div>
-<div>Content: <%= comment.content %></div>
-<div>User: <%= comment.user.name %></div><br>
+<h6> <i> Title: <%= comment.title %> <i></h6>
+<h6>Content: <%= comment.content %></h6>
+<h6>By: <%= comment.user.name %> </h6><br>
 <% end %>
-
