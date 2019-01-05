@@ -1,51 +1,53 @@
 $(() => {
+	console.log('commentsjs loaded');
 	CommentClickHandlers()
 
 })
 
 const CommentClickHandlers = () => {
-	$(`.all_comments`).on('click', (e) => {
+	$('a.all_comments').on('click', (e) => {
 		e.preventDefault()
-		getComments()	
+		let url = e.target.href
+
+		getComments(url)
 	})
 
 }
 
+const getComments = (url) => {
+	// let id = $(this).attr('data-id')
+	// console.log(id)
 
 
-const getComments = () => {
-	let id = $(this).attr('data-id')
-	console.log(id)
-	fetch('/all_comments.json')
-			.then(res => res.json())
+	// recipes/1/comments.json
+
+	let newUrl = url + '.json'
+
+	fetch(newUrl)
+		.then(res => res.json()
 			.then(comments => {
 				$('#app-container').html('')
 				comments.forEach((comment) => {
 					console.log(comment)
 					let newComment = new Comment(comment)
-					let commentHtml = newComment.formatIndex()
+					let commentHtml = newComment.formatShow()
 					$('#app-container').append(commentHtml)
-				
 				})
-
 			})
-			
-
+		)
 }
 
-function Comment(comment){
+function Comment(comment) {
 	this.id = comment.id
 	this.title = comment.title
 	this.content = comment.content
 	this.user = comment.user
 }
 
-Comment.prototype.formatShow = function(){
+Comment.prototype.formatShow = function () {
 	let commentHtml = `
-	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
-
-	<h5>${this.title}</h5>
-	<h6>${this.content}<h/6>
+	<a href= "/recipes/${this.id}/comments" data-id="${this.id}"
+	<h5>${this.title}</h5><br>
 	`
 	return commentHtml
 }

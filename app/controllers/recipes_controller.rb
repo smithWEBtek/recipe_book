@@ -37,8 +37,8 @@ class RecipesController < ApplicationController
   def show
     set_recipe
     respond_to do |f|
-      f.html
-      f.json {render json: @user}
+      f.html {render :show}
+      f.json {render json: @recipe}
     end
   end
 

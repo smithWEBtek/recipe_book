@@ -13,8 +13,6 @@ const ClickHandlers = () => {
 	$(document).on('click', ".show_link", function(e) {
 		e.preventDefault()
 		let id = $(this).attr('data-id')
-		console.log(id)
-		console.log(this)
 		fetch(`/recipes/${id}.json`)
 		.then(res => res.json())
 		.then(recipe => {
@@ -40,9 +38,9 @@ const getRecipes = () => {
 				$('#app-container').html('')
 				recipes.forEach((recipe) => {
 					let newRecipe = new Recipe(recipe)
-
 					let recipeHtml = newRecipe.formatIndex()
 					$('#app-container').append(recipeHtml)
+
 				
 				})
 
@@ -66,15 +64,13 @@ Recipe.prototype.formatIndex = function(){
 	let recipeHtml = `
 	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
 	`
-	console.log(this)
-	console.log(recipeHtml)
 	return recipeHtml
 }
 Recipe.prototype.formatShow = function(){
 	let recipeHtml = `
-	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" 
+	<a href= "/recipes/${this.id}/next" data-id="${this.id}" 
 
-	<button class= "next_recipe">${this.title} Comments</button>
+	<button class= "next_recipe"> Next </button>
 	`
 	return recipeHtml
 }
