@@ -3,56 +3,57 @@ $(() => {
 
 })
 
+// Ally check out this function...
 const ClickHandlers = () => {
 	$(`.recipes`).on('click', (e) => {
 		e.preventDefault()
 		//history.pushState(null, null, "recipes")
 		getRecipes()
-		
-		})
-	$(document).on('click', ".show_link", function(e) {
+
+	})
+	$(document).on('click', ".show_link", function (e) {
 		e.preventDefault()
 		let id = $(this).attr('data-id')
 		console.log(id)
 		console.log(this)
 		fetch(`/recipes/${id}.json`)
-		.then(res => res.json())
-		.then(recipe => {
-			let newRecipe = new Recipe(recipe)
-			let recipeHtml = newRecipe.formatShow()
-			$('#app-container').append(recipeHtml)		
-		})
-	})
-	$(document).on('click', '.next_recipe', function(e){
-				let id = $(this).attr('data-id')
-				console.log(id)
-				fetch(`/recipes/${id}/next.json`)				
-				
+			.then(res => res.json())
+			.then(recipe => {
+				let newRecipe = new Recipe(recipe)
+				let recipeHtml = newRecipe.formatShow()
+				$('#app-container').append(recipeHtml)
 			})
+	})
+	$(document).on('click', '.next_recipe', function (e) {
+		let id = $(this).attr('data-id')
+		console.log(id)
+		fetch(`/recipes/${id}/next.json`)
+
+	})
 }
 
 
 
 const getRecipes = () => {
 	fetch('/recipes.json')
-			.then(res => res.json())
-			.then(recipes => {
-				$('#app-container').html('')
-				recipes.forEach((recipe) => {
-					let newRecipe = new Recipe(recipe)
+		.then(res => res.json())
+		.then(recipes => {
+			$('#app-container').html('')
+			recipes.forEach((recipe) => {
+				let newRecipe = new Recipe(recipe)
 
-					let recipeHtml = newRecipe.formatIndex()
-					$('#app-container').append(recipeHtml)
-				
-				})
+				let recipeHtml = newRecipe.formatIndex()
+				$('#app-container').append(recipeHtml)
 
 			})
-			
+
+		})
+
 
 }
 
 // constructor function
-function Recipe(recipe){
+function Recipe(recipe) {
 	this.id = recipe.id
 	this.title = recipe.title
 	this.category = recipe.category
@@ -62,7 +63,7 @@ function Recipe(recipe){
 
 
 //finish adding html for index markup of prototyping
-Recipe.prototype.formatIndex = function(){
+Recipe.prototype.formatIndex = function () {
 	let recipeHtml = `
 	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
 	`
@@ -70,7 +71,7 @@ Recipe.prototype.formatIndex = function(){
 	console.log(recipeHtml)
 	return recipeHtml
 }
-Recipe.prototype.formatShow = function(){
+Recipe.prototype.formatShow = function () {
 	let recipeHtml = `
 	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" 
 
