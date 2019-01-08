@@ -38,17 +38,24 @@ const listenForNewCommentClick = () => {
 	})
 }
 
-function newCommentClick(){
-	let newForm = $("comment_form").html().replace("<%= escape_javascript(render partial: 'comments/ajax_new', locals: { recipe: @recipe } ) %>")
-
+function newCommentClick() {
+	$.ajax({
+		url: 'http://127.0.0.1:3000/recipes/1/comments/new',
+		method: 'get'
+	}).done(function (data) {
+		console.log("this should be an an HTML form: ", data);
+		$('div#comment_form').html(data)
+	})
 }
+
+
 class Comment {
-constructor(commentObj) {
-	this.id = commentObj.id
-	this.title = commentObj.title
-	this.content = commentObj.content
-	this.user = commentObj.user
-	this.recipe = commentObj.recipe.id
+	constructor(commentObj) {
+		this.id = commentObj.id
+		this.title = commentObj.title
+		this.content = commentObj.content
+		this.user = commentObj.user
+		this.recipe = commentObj.recipe.id
 	}
 }
 Comment.prototype.formatShow = function () {
