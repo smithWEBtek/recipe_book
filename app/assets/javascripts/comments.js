@@ -9,7 +9,6 @@ const CommentClickHandlers = () => {
 	$('a.all_comments').on('click', (e) => {
 		e.preventDefault()
 		let url = e.target.href
-
 		getComments(url)
 	})
 
@@ -31,23 +30,23 @@ const getComments = (url) => {
 		)
 }
 
-const listenForNewCommentClick = () => {
-	$('a.new_comment').on('click', (e) => {
+const listenForNewCommentForm = () => {
+	$('a.new_comment').on('click', (event) => {
 		event.preventDefault()
-		newCommentClick()
+		let url = event.target.href
+		newCommentForm(url)
 	})
 }
 
-function newCommentClick() {
+function newCommentForm(url) {
 	$.ajax({
-		url: 'http://127.0.0.1:3000/recipes/1/comments/new',
+		url: url,
 		method: 'get'
 	}).done(function (data) {
-		console.log("this should be an an HTML form: ", data);
+		// console.log("this should be an an HTML form: ", data);
 		$('div#comment_form').html(data)
 	})
 }
-
 
 class Comment {
 	constructor(commentObj) {
