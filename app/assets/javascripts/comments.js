@@ -1,6 +1,7 @@
 $(() => {
 	console.log('commentsjs loaded');
 	CommentClickHandlers()
+	listenForNewCommentClick()
 
 })
 
@@ -30,18 +31,29 @@ const getComments = (url) => {
 		)
 }
 
-function Comment(comment) {
-	this.id = comment.id
-	this.title = comment.title
-	this.content = comment.content
-	this.user = comment.user
-	this.recipe = comment.recipe.id
+const listenForNewCommentClick = () => {
+	$('a.new_comment').on('click', (e) => {
+		event.preventDefault()
+		newCommentClick()
+	})
 }
 
+function newCommentClick(){
+	let newForm = $("comment_form").html().replace("<%= escape_javascript(render partial: 'comments/ajax_new', locals: { recipe: @recipe } ) %>")
+
+}
+class Comment {
+constructor(commentObj) {
+	this.id = commentObj.id
+	this.title = commentObj.title
+	this.content = commentObj.content
+	this.user = commentObj.user
+	this.recipe = commentObj.recipe.id
+	}
+}
 Comment.prototype.formatShow = function () {
 
 	let commentHtml = `
-		<h4> Comments: </h4>
 	<a href= "/recipes/${this.recipe}/comments/${this.id}" data-id="${this.id}"
 	<h5>${this.title}</h5><br>
 	`

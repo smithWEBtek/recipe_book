@@ -21,12 +21,7 @@ const ClickHandlers = () => {
 			$('#app-container').append(recipeHtml)		
 		})
 	})
-	$(document).on('click', '.next_recipe', function(e){
-				let id = $(this).attr('data-id')
-				console.log(id)
-				fetch(`/recipes/${id}/next.json`)				
-				
-			})
+
 }
 
 
@@ -40,37 +35,34 @@ const getRecipes = () => {
 					let newRecipe = new Recipe(recipe)
 					let recipeHtml = newRecipe.formatIndex()
 					$('#app-container').append(recipeHtml)
-
-				
 				})
-
-			})
-			
-
+			})			
 }
 
-// constructor function
-function Recipe(recipe){
-	this.id = recipe.id
-	this.title = recipe.title
-	this.category = recipe.category
-	this.directions = recipe.directions
-	this.cook_time = recipe.cook_time
+
+// class constructor function
+class Recipe {
+constructor(recipeObj){
+	this.id = recipeObj.id
+	this.title = recipeObj.title
+	this.category = recipeObj.category
+	this.directions = recipeObj.directions
+	this.cook_time = recipeObj.cook_time
+	}
 }
 
 
 //finish adding html for index markup of prototyping
 Recipe.prototype.formatIndex = function(){
 	let recipeHtml = `
-	<a href= "/recipes/${this.id}/comments" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
+	<a href= "/recipes/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</h3>
 	`
 	return recipeHtml
 }
 Recipe.prototype.formatShow = function(){
 	let recipeHtml = `
-	<a href= "/recipes/${this.id}/next" data-id="${this.id}" 
+	<a href= "/recipes/${this.id}/next" data-id="${this.id} " 
 
-	<button class= "next_recipe"> Next </button>
 	`
 	return recipeHtml
 }

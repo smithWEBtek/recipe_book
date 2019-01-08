@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'recipes_find_newest' => 'recipes#find_newest'
   get 'recipes_find_quickest' => 'recipes#find_quickest'
   get 'recipes_most_ingredients' => 'recipes#most_ingredients'
+  get '/ajax_new' => 'comments#ajax_new'
 
   resources :users
   resources :ingredients

@@ -6,12 +6,13 @@
 <h5>Directions-  <%="#{@recipe.directions}"%></h5> 
 <h5>Cook Time-  <%="#{@recipe.cook_time}"%> minutes </h5> 
 <%= link_to "All Comments |", recipe_comments_path(@recipe), class: "all_comments" %>
-<%= link_to  "New Comment |", new_recipe_comment_path(@recipe)%>
+
+<%= link_to  "New Comment |", new_recipe_comment_path(@recipe), class: "new_comment", remote: true%>
 <%if logged_in? %>
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>
 <%=link_to "Delete", recipe_path(@recipe), :method => :delete%>
 <%end%>
-
+<div id= "comment_form"> New Comment Form goes here</div>
 <h5>Comments: <br>
  <% @recipe.comments.each do |comment| %>
   <div><%= link_to comment.title, recipe_comment_path(@recipe, comment) %></div>

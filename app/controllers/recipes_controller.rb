@@ -20,14 +20,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # def your_recipes
-  #   @recipes = current_user.recipes.all
-  #   respond_to do |f|
-  #     f.html
-  #     f.json {render json: @recipes}
-  #   end
-  # end
-
   #search method call from recipe model for search parameter
   def search
     @recipes = Recipe.search(params[:search])

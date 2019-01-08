@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
 
+  def ajax_new
+    @comment = find_by_id(Comment)
+    render :_ajax_new
+  end
+
   def index
     @recipe = Recipe.find(params[:recipe_id])
     # @comments = Recipe.find(params[:recipe_id]).comments.all
@@ -25,6 +30,8 @@ class CommentsController < ApplicationController
       redirect_to recipes_path, alert: "Recipe not found."
     else
       @comment = Comment.new(recipe_id: params[:recipe_id])
+      #show me new page without layout
+      render :_ajax_new, layout: false
     end
   end
 
