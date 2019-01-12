@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'recipes_most_ingredients' => 'recipes#most_ingredients'
   get '/ajax_new' => 'comments#ajax_new'
 
+
   resources :users
   resources :ingredients
 

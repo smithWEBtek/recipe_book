@@ -1,7 +1,9 @@
 $(() => {
 	console.log('commentsjs loaded');
 	CommentClickHandlers()
-	listenForNewCommentClick()
+	listenForNewCommentForm()
+	listenForCreateComment()	
+
 
 })
 
@@ -31,17 +33,50 @@ const getComments = (url) => {
 		)
 }
 
-const listenForNewCommentClick = () => {
-	$('a.new_comment').on('click', (e) => {
+const listenForNewCommentForm = () => {
+	$('a.new_comment').on('click', (event) => {
 		event.preventDefault()
-		newCommentClick()
+		let url = event.target.href
+		newCommentForm(url)
 	})
 }
 
-function newCommentClick(){
-	let newForm = $("comment_form").html().replace("<%= escape_javascript(render partial: 'comments/ajax_new', locals: { recipe: @recipe } ) %>")
-
+function newCommentForm(url) {
+    $.ajax({
+        url: url,
+        method: 'get'
+    }).done(function (data) {
+        $('div#comment_form').html(data)
+        listenForCreateComment()
+    })
 }
+
+const listenForCreateComment = () => {
+	$('input').on("click", (event) => {
+		event.preventDefault()
+		let url = event.target.href
+		console.log("listen for submit")
+		submitCommentForm()
+
+	})
+}
+function submitCommentForm(url) {
+	debugger
+	$.ajax({
+		url:url,
+		method: 'post',
+		data: {
+			'comment':{
+				'title': $("#comment_title").value(),
+				'content': $("#comment_content").value(),
+			}
+		}
+	}).done(function (data) {
+		$('#ajax_form').html(data)
+	})
+}
+
+
 class Comment {
 constructor(commentObj) {
 	this.id = commentObj.id

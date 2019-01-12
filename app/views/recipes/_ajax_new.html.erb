@@ -1,3 +1,4 @@
+<div id= "ajax_form">
 <h3><%= @comment.recipe.title %> </h3>
  <%= form_for @comment, remote: true do |f| %>
  <label>Title:</label><br>
@@ -7,3 +8,4 @@
  <%= f.text_area :content %><br>
  <%= f.submit %>
  <% end %>
+</div>

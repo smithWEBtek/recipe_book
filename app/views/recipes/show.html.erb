@@ -12,10 +12,11 @@
 <%=link_to "Edit |", edit_recipe_path(@recipe)%>
 <%=link_to "Delete", recipe_path(@recipe), :method => :delete%>
 <%end%>
-<div id= "comment_form"> New Comment Form goes here</div>
+
+<div id= "comment_form"></div>
 <h5>Comments: <br>
  <% @recipe.comments.each do |comment| %>
-  <div><%= link_to comment.title, recipe_comment_path(@recipe, comment) %></div>
+  <div><%= link_to comment.title, recipe_comment_path(@recipe, comment), class: "comment_list" %></div>
 <% end %>
 </h5>
 <%end%>

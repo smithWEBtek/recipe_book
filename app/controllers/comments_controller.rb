@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to recipe_path(@comment.recipe.id, @comment)
     else
-      render :new
+      render "recipes/show"
     end
   end
 
@@ -73,7 +73,7 @@ class CommentsController < ApplicationController
     else
       @comment = find_by_id(Comment)
       @comment.destroy!
-      redirect_to recipe_path
+      redirect_to user_path
     end
   end
 
