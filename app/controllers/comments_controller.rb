@@ -43,14 +43,10 @@ class CommentsController < ApplicationController
 	
   #create a comment and attach it to the current user.
 	def create
-		
 		@comment = Comment.new(comment_params)
-		@comment.user_id = 1
-
-		# binding.pry
-		if @comment.save
-			render json: @comment
-		end
+		@comment.user_id =  current_user.id
+		@comment.save
+		render json: @comment
   end
 
   #find the comment by id and update

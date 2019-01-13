@@ -58,6 +58,7 @@ const createComment = () => {
 		$.ajax({
 			url: url,
 			method: 'post',
+			dataType: 'json',
 			data: data
 		}).done(function (response) {
 
@@ -75,7 +76,7 @@ class Comment {
 		this.recipe = commentObj.recipe.id
 	}
 
-	static newCommentForm = function () {
+	static newCommentForm() {
 		let commentHtml = `
 	<a href= "/recipes/${this.recipe}/comments/${this.id}" data-id="${this.id}"
 	<h5>${this.title}</h5><br>
