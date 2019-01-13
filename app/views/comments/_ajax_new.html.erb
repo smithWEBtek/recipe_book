@@ -1,5 +1,6 @@
 
  <%= form_for @comment, remote: true do |f| %>
+ <p> ajax form ....</p>
  <label>Title:</label><br>
  <%= f.hidden_field :recipe_id %>
  <%= f.text_field :title %><br>

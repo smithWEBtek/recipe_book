@@ -2,15 +2,13 @@ class Recipe < ActiveRecord::Base
 	belongs_to :user
   has_many :comments
   has_many :recipe_ingredients
-  has_many :ingredients, through: :recipe_ingredients
+	has_many :ingredients, through: :recipe_ingredients
+	
   validates :title, presence: true
   validates :category, presence: true
   validates :directions, presence: true
-  validates :title, presence: true
   validates :cook_time, presence: true
 
-  
-  
   accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :recipe_ingredients, reject_if: :all_blank, allow_destroy: true
 

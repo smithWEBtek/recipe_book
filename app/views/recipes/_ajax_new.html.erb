@@ -1,6 +1,8 @@
 <div id= "ajax_form">
-<h3><%= @comment.recipe.title %> </h3>
- <%= form_for @comment, remote: true do |f| %>
+
+<h1>This is the ajax partial "ajax_new" in RECIPES views folder</h1>
+<h3><%= comment.recipe.title %> </h3>
+ <%= form_for comment, remote: true do |f| %>
  <label>Title:</label><br>
  <%= f.hidden_field :recipe_id %>
  <%= f.text_field :title %><br>

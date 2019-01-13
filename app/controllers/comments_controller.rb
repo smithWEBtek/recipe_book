@@ -1,9 +1,10 @@
 class CommentsController < ApplicationController
 
-  def ajax_new
-    @comment = find_by_id(Comment)
-    render :_ajax_new
-  end
+  # def ajax_new
+  #   @comment = Comment.new
+	# 	# render partial: 'ajax_new', locals: {comment: @comment}
+	# 	render :_ajax_new, layout: false
+  # end
 
   def index
     @recipe = Recipe.find(params[:recipe_id])
@@ -25,25 +26,31 @@ class CommentsController < ApplicationController
   end
 
   #create a new comment if the recipe id exists and attach it to that recipe id
-  def new
-    if params[:recipe_id] && !Recipe.exists?(params[:recipe_id])
-      redirect_to recipes_path, alert: "Recipe not found."
-    else
-      @comment = Comment.new(recipe_id: params[:recipe_id])
-      #show me new page without layout
-      render :_ajax_new, layout: false
-    end
+	def new
+		
+		
+		
+    # if params[:recipe_id] && !Recipe.exists?(params[:recipe_id])
+    #   redirect_to recipes_path, alert: "Recipe not found."
+    # else
+		# @comment = Comment.new(recipe_id: params[:recipe_id])
+		@comment = Comment.new(recipe_id: params[:recipe_id])
+		
+		#show me new page without layout
+		render :_ajax_new, layout: false
+    # end
   end
-
+	
   #create a comment and attach it to the current user.
-  def create
-    @comment = Comment.new(comment_params)
-    @comment.user = current_user
-    if @comment.save
-      redirect_to recipe_path(@comment.recipe.id, @comment)
-    else
-      render "recipes/show"
-    end
+	def create
+		
+		@comment = Comment.new(comment_params)
+		@comment.user_id = 1
+
+		# binding.pry
+		if @comment.save
+			render json: @comment
+		end
   end
 
   #find the comment by id and update
@@ -83,6 +90,6 @@ class CommentsController < ApplicationController
 
   #params for comments
   def comment_params
-    params.require(:comment).permit(:title, :content, :recipe_id)
+    params.require(:comment).permit(:user_id, :title, :content, :recipe_id)
   end
 end

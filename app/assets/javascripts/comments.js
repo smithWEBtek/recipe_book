@@ -1,10 +1,8 @@
 $(() => {
 	console.log('commentsjs loaded');
-	CommentClickHandlers()
-	listenForNewCommentForm()
-	listenForCreateComment()	
-
-
+	// CommentClickHandlers()
+	newCommentForm()
+	// createComment()
 })
 
 const CommentClickHandlers = () => {
@@ -33,60 +31,72 @@ const getComments = (url) => {
 		)
 }
 
-const listenForNewCommentForm = () => {
+const newCommentForm = () => {
 	$('a.new_comment').on('click', (event) => {
 		event.preventDefault()
+		event.stopPropagation()
+
+		// let url = 'http://localhost:3000/ajax_new'
 		let url = event.target.href
-		newCommentForm(url)
+
+		$.ajax({
+			url: url,
+			method: 'get'
+		}).done(function (htmlData) {
+			$('div#comment_form').html(htmlData)
+			createComment()
+		})
 	})
 }
 
-function newCommentForm(url) {
-    $.ajax({
-        url: url,
-        method: 'get'
-    }).done(function (data) {
-        $('div#comment_form').html(data)
-        listenForCreateComment()
-    })
-}
-
-const listenForCreateComment = () => {
-	$('input').on("click", (event) => {
+const createComment = () => {
+	$('form#new_comment').on('submit', (event) => {
 		event.preventDefault()
-		let url = event.target.href
-		console.log("listen for submit")
-		submitCommentForm()
+		let data = $('form#new_comment').serialize()
+		let url = event.target.baseURI + '/comments'
 
+		$.ajax({
+			url: url,
+			method: 'post',
+			data: data
+		}).done(function (response) {
+
+			$('div#new_comment_response').html(response.title)
+		})
 	})
 }
-function submitCommentForm(url) {
-	debugger
-	$.ajax({
-		url:url,
-		method: 'post',
-		data: {
-			'comment':{
-				'title': $("#comment_title").value(),
-				'content': $("#comment_content").value(),
-			}
-		}
-	}).done(function (data) {
-		$('#ajax_form').html(data)
-	})
-}
-
 
 class Comment {
-constructor(commentObj) {
-	this.id = commentObj.id
-	this.title = commentObj.title
-	this.content = commentObj.content
-	this.user = commentObj.user
-	this.recipe = commentObj.recipe.id
+	constructor(commentObj) {
+		this.id = commentObj.id
+		this.title = commentObj.title
+		this.content = commentObj.content
+		this.user = commentObj.user
+		this.recipe = commentObj.recipe.id
+	}
+
+	static newCommentForm = function () {
+		let commentHtml = `
+	<a href= "/recipes/${this.recipe}/comments/${this.id}" data-id="${this.id}"
+	<h5>${this.title}</h5><br>
+	`
+		return commentHtml
 	}
 }
+
+
+Comment.newCommentForm()
+
+
 Comment.prototype.formatShow = function () {
+	let commentHtml = `
+	<a href= "/recipes/${this.recipe}/comments/${this.id}" data-id="${this.id}"
+	<h5>${this.title}</h5><br>
+	`
+	return commentHtml
+}
+
+Comment.prototype.newCommentForm = function () {
 
 	let commentHtml = `
 	<a href= "/recipes/${this.recipe}/comments/${this.id}" data-id="${this.id}"

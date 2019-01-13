@@ -13,6 +13,9 @@
 <%=link_to "Delete", recipe_path(@recipe), :method => :delete%>
 <%end%>
 
+<div id="new_comment_response">++++++++++++++++</div>
+
+
 <div id= "comment_form"></div>
 <h5>Comments: <br>
  <% @recipe.comments.each do |comment| %>
